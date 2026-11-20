@@ -63,7 +63,7 @@ function resolveFile(urlPath, search) {
 
 // Keep navigation working despite Next.js client routing (which needs a server).
 // Appended to an existing inline <script> so no new DOM nodes are added (avoids
-// React hydration mismatch). Also answers /api/now-playing from a local file.
+// React hydration mismatch). Also answers /api/now-playing from a local data file.
 const NAV_CODE = `
 (function(){
   addEventListener('click', function(e){
@@ -98,7 +98,7 @@ http
       return;
     }
     if (urlPath === "/api/now-playing") {
-      const api = path.join(ROOT, "api/now-playing.json");
+      const api = path.join(ROOT, "data/now-playing.json");
       if (fs.existsSync(api)) {
         res.writeHead(200, { "content-type": "application/json", "cache-control": "no-store" });
         fs.createReadStream(api).pipe(res);

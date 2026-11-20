@@ -51,7 +51,7 @@ The site is connected to Vercel through GitHub:
 - Vercel project: `stasher-studio` (Hobby)
 - Pushes to `main` deploy automatically.
 
-`vercel.json` enables clean URLs and long-lived caching for immutable assets. `api/now-playing.js` is the serverless version of the local endpoint.
+`vercel.json` enables clean URLs and long-lived caching for immutable assets. `api/now-playing.js` is the serverless version of the local endpoint; the shared response data lives in `data/now-playing.json` (kept outside `api/` so Vercel does not treat it as a second `/api/now-playing` route).
 
 ## Spotify
 
