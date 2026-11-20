@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,96227,t=>{"use strict";t.S([21787,"createCanvasLiquid,f",0,13125,"cssRgb,f"])}]);

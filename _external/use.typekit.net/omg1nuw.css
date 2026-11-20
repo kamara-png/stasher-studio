@@ -1,0 +1,38 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * early-sans-variable:
+ *   - http://typekit.com/eulas/00000000000000007755b0da
+ *   - http://typekit.com/eulas/00000000000000007755b0db
+ * lekick-regular:
+ *   - http://typekit.com/eulas/0000000000000000774a1c09
+ *
+ * © 2009-2026 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2026-10-02 20:48:24 UTC"}*/
+
+@import url("../p.typekit.net/p__9214a4c1.css");
+
+@font-face {
+font-family:"lekick-regular";
+src:url("af/ea70a2/0000000000000000774a1c09/l__0a69e489") format("woff2"),url("af/ea70a2/0000000000000000774a1c09/d__0a69e489") format("woff"),url("af/ea70a2/0000000000000000774a1c09/a__0a69e489") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
+}
+
+@font-face {
+font-family:"early-sans-variable";
+src:url("af/b563d2/00000000000000007755b0da/l__ef3c5c13") format("woff2"),url("af/b563d2/00000000000000007755b0da/d__ef3c5c13") format("woff"),url("af/b563d2/00000000000000007755b0da/a__ef3c5c13") format("opentype");
+font-display:auto;font-style:normal;font-weight:300 900;font-stretch:normal;
+}
+
+@font-face {
+font-family:"early-sans-variable";
+src:url("af/af06b8/00000000000000007755b0db/l__2281ca1b") format("woff2"),url("af/af06b8/00000000000000007755b0db/d__2281ca1b") format("woff"),url("af/af06b8/00000000000000007755b0db/a__2281ca1b") format("opentype");
+font-display:auto;font-style:italic;font-weight:300 900;font-stretch:normal;
+}
+
+.tk-lekick-regular { font-family: "lekick-regular",sans-serif; }
+.tk-early-sans-variable { font-family: "early-sans-variable",sans-serif; }
