@@ -9,7 +9,7 @@ const DATA = {
   cover: { src: "/media/now-playing-cover.jpg", width: 300, height: 300 },
 };
 
-export default function handler(_req, res) {
+module.exports = function handler(_req, res) {
   res.status(200);
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
