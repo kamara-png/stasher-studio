@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 5173);
 const require = createRequire(import.meta.url);
-const { getDailyPick } = require("./api/now-playing.js");
+const { getCurrentPick } = require("./api/now-playing.js");
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -101,7 +101,7 @@ http
       return;
     }
     if (urlPath === "/api/now-playing") {
-      const payload = Buffer.from(JSON.stringify(getDailyPick()), "utf8");
+      const payload = Buffer.from(JSON.stringify(getCurrentPick()), "utf8");
       res.writeHead(200, {
         "content-type": "application/json; charset=utf-8",
         "content-length": payload.length,

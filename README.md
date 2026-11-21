@@ -55,7 +55,7 @@ The site is connected to Vercel through GitHub:
 
 ## Spotify
 
-The footer widget shows one track from Kamarack's [**Where chill lives**](https://open.spotify.com/playlist/24XzSwbECrMqf6xNl2Vn6S) playlist and changes it once a day at midnight in Nairobi (UTC+3). The pool of 240 tracks is stored in `data/playlist.json`; `api/now-playing.js` shuffles it once and picks the track for the current local day, so every visitor sees the same song until the next day. This is a daily pick, not a live playback feed.
+The footer widget shows one track from Kamarack's [**Where chill lives**](https://open.spotify.com/playlist/24XzSwbECrMqf6xNl2Vn6S) playlist and changes it every five minutes. The pool of 240 tracks is stored in `data/playlist.json`; `api/now-playing.js` shuffles it once and picks the track for the current five-minute slot, so every visitor sees the same song during that slot. The full shuffled pool cycles in about 20 hours. This is a rotating pick, not a live playback feed.
 
 To refresh the pool, replace `data/playlist.json` with a fresh export of the playlist. There is no build step and no Spotify credentials required.
 

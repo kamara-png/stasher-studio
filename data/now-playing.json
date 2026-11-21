@@ -1,11 +1,11 @@
 {
   "live": true,
   "playing": true,
-  "title": "Route 66 (feat. EST Gee)",
-  "artist": "Jack Harlow, EST Gee",
-  "url": "https://open.spotify.com/track/5faz5WYRJdRDiCa42DSgHR",
+  "title": "WORKIN ME",
+  "artist": "Quavo",
+  "url": "https://open.spotify.com/track/4MAsYGSgxsaj73dC2lvFC4",
   "cover": {
-    "src": "https://i.scdn.co/image/ab67616d0000b2736c97899926c43255b4238dfa",
+    "src": "https://i.scdn.co/image/ab67616d0000b273a1fc738279f01eb8086fc44d",
     "width": 640,
     "height": 640
   },
@@ -13,5 +13,6 @@
     "name": "Where chill lives",
     "url": "https://open.spotify.com/playlist/24XzSwbECrMqf6xNl2Vn6S"
   },
-  "date": "2026-11-21"
+  "date": "2026-11-21",
+  "slot": 5984163
 }

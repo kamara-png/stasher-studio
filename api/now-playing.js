@@ -2,8 +2,8 @@
 // Picks one track from Kamarack's "Where chill lives" playlist each day.
 const playlist = require("../data/playlist.json");
 
-const DAY_MS = 24 * 60 * 60 * 1000;
-const NAIROBI_OFFSET_MS = 3 * 60 * 60 * 1000; // UTC+3, so the pick changes at local midnight
+const SLOT_MS = 5 * 60 * 1000;
+const NAIROBI_OFFSET_MS = 3 * 60 * 60 * 1000; // keeps slots aligned to local five-minute boundaries
 
 function hashString(value) {
   let hash = 2166136261 >>> 0;
@@ -36,16 +36,17 @@ function buildDailyOrder(length) {
 
 const ORDER = buildDailyOrder(playlist.tracks.length);
 
-function dayIndex(now = Date.now()) {
-  return Math.floor((now + NAIROBI_OFFSET_MS) / DAY_MS);
+function slotIndex(now = Date.now()) {
+  return Math.floor((now + NAIROBI_OFFSET_MS) / SLOT_MS);
 }
 
 function dateKey(now = Date.now()) {
   return new Date(now + NAIROBI_OFFSET_MS).toISOString().slice(0, 10);
 }
 
-function getDailyPick(now = Date.now()) {
-  const track = playlist.tracks[ORDER[dayIndex(now) % ORDER.length]];
+function getCurrentPick(now = Date.now()) {
+  const slot = slotIndex(now);
+  const track = playlist.tracks[ORDER[slot % ORDER.length]];
   return {
     live: true,
     playing: true,
@@ -55,15 +56,16 @@ function getDailyPick(now = Date.now()) {
     cover: { src: track.cover, width: 640, height: 640 },
     playlist: { name: playlist.name, url: playlist.url },
     date: dateKey(now),
+    slot,
   };
 }
 
 function handler(_req, res) {
   res.status(200);
   res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Cache-Control", "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400");
-  res.end(JSON.stringify(getDailyPick()));
+  res.setHeader("Cache-Control", "no-store");
+  res.end(JSON.stringify(getCurrentPick()));
 }
 
 module.exports = handler;
-module.exports.getDailyPick = getDailyPick;
+module.exports.getCurrentPick = getCurrentPick;
