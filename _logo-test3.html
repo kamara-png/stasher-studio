@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  body { margin:0; font-family:sans-serif; }
+  .dark { background:#0d0018; color:#fff; padding:30px; }
+  .light { background:#f3efff; color:#000; padding:30px; }
+  .row { display:flex; align-items:center; gap:50px; margin:20px 0; flex-wrap:wrap; }
+  .box { border:1px dashed #8b5cf6; }
+  img.a { width:110px; height:50px; object-fit:contain; display:block; }
+  img.b { width:330px; height:auto; display:block; }
+  img.c { width:154px; height:70px; object-fit:contain; display:block; }
+  .invert { filter:invert(1); }
+  .invhue { filter:invert(1) hue-rotate(180deg); }
+</style></head>
+<body>
+  <div class="dark">
+    <p>Dark — cropped logo: header 110x50, footer 330, loader 154x70</p>
+    <div class="row">
+      <div class="box"><img class="a" src="/brand/Logo-melon.svg" alt=""></div>
+      <div class="box"><img class="b" src="/brand/logo-footer.svg" alt=""></div>
+      <div class="box"><img class="c" src="/brand/Logo-melon.svg" alt=""></div>
+    </div>
+  </div>
+  <div class="light">
+    <p>Light — original, CSS invert(1), invert+hue-rotate</p>
+    <div class="row">
+      <div class="box"><img class="a" src="/brand/Logo-melon.svg" alt=""></div>
+      <div class="box"><img class="a invert" src="/brand/Logo-melon.svg" alt=""></div>
+      <div class="box"><img class="a invhue" src="/brand/Logo-melon.svg" alt=""></div>
+      <div class="box"><img class="b" src="/brand/logo-footer.svg" alt=""></div>
+    </div>
+  </div>
+</body></html>

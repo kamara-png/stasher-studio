@@ -1,1 +1,17 @@
-{"live":true,"playing":true,"title":"Kamarack on Spotify","artist":"Follow my music — Kamarack","url":"https://open.spotify.com/user/Kamarack","cover":{"src":"/media/now-playing-cover.jpg","width":300,"height":300}}
+{
+  "live": true,
+  "playing": true,
+  "title": "Route 66 (feat. EST Gee)",
+  "artist": "Jack Harlow, EST Gee",
+  "url": "https://open.spotify.com/track/5faz5WYRJdRDiCa42DSgHR",
+  "cover": {
+    "src": "https://i.scdn.co/image/ab67616d0000b2736c97899926c43255b4238dfa",
+    "width": 640,
+    "height": 640
+  },
+  "playlist": {
+    "name": "Where chill lives",
+    "url": "https://open.spotify.com/playlist/24XzSwbECrMqf6xNl2Vn6S"
+  },
+  "date": "2026-11-21"
+}

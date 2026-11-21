@@ -4,10 +4,13 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 5173);
+const require = createRequire(import.meta.url);
+const { getDailyPick } = require("./api/now-playing.js");
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -98,12 +101,14 @@ http
       return;
     }
     if (urlPath === "/api/now-playing") {
-      const api = path.join(ROOT, "data/now-playing.json");
-      if (fs.existsSync(api)) {
-        res.writeHead(200, { "content-type": "application/json", "cache-control": "no-store" });
-        fs.createReadStream(api).pipe(res);
-        return;
-      }
+      const payload = Buffer.from(JSON.stringify(getDailyPick()), "utf8");
+      res.writeHead(200, {
+        "content-type": "application/json; charset=utf-8",
+        "content-length": payload.length,
+        "cache-control": "no-store",
+      });
+      res.end(payload);
+      return;
     }
     const file = resolveFile(urlPath, url.search);
     if (!file) {
