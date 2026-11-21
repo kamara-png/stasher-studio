@@ -1,4 +1,4 @@
-(()=>{"use strict";(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,82035,70382,t=>{var e=t.i(13125),r=t.i(56385);let n={deep:"oklch(49.1% 0.2017 29.23)",hot:"oklch(64.6% 0.2402 29.15)",pale:"oklch(87.4% 0.0699 40.55)"};t.s(["U",0,{warp:.34,spray:.06,tail:.12,core:.014},"s",0,[0,4],"I",0,n],70382);let i=`
+(()=>{"use strict";(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,82035,70382,t=>{var e=t.i(13125),r=t.i(56385);let n={deep:"oklch(49.1% 0.2017 292.72)",hot:"oklch(64.6% 0.2402 292.72)",pale:"oklch(87.4% 0.0699 306.38)"};t.s(["U",0,{warp:.34,spray:.06,tail:.12,core:.014},"s",0,[0,4],"I",0,n],70382);let i=`
 float h21(vec2 p){ vec3 q = fract(p.xyx * .1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
 float vnoise(vec2 p){
   vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f);
