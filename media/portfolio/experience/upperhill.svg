@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Upper Hill School">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#144C3A"/><stop offset="1" stop-color="#082A20"/></linearGradient></defs>
+  <rect width="240" height="240" rx="26" fill="url(#g)"/>
+  <path d="M120 26l82 36v74c0 46-34 70-82 82-48-12-82-36-82-82V62z" fill="none" stroke="#D9B44A" stroke-opacity=".8" stroke-width="3"/>
+  <text x="120" y="114" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="700" letter-spacing="-2" fill="#F4E7BF">UH</text>
+  <path d="M66 132h108" stroke="#D9B44A" stroke-width="3" stroke-linecap="round"/>
+  <text x="120" y="160" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#F4E7BF">UPPER HILL</text>
+  <text x="120" y="183" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10" letter-spacing="3" fill="#D9B44A">SCHOOL</text>
+</svg>

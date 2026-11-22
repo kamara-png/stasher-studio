@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Spinx">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D9B44A"/><stop offset="1" stop-color="#1A1A1A"/></linearGradient></defs>
+  <rect width="200" height="200" rx="100" fill="url(#g)"/>
+  <text x="100" y="121" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="68" font-weight="700" letter-spacing="-2" fill="#FFFFFF">SX</text>
+</svg>

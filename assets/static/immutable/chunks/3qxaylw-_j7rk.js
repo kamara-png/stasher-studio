@@ -63,7 +63,7 @@ vec3 deform(vec2 uv, out float th) {
 
 	if (abs(u_wind) > 0.0001) {
 		// the S lift L, applied along the ray camera → vertex: the point comes closer by L in z (or falls away) but
-		// stays on its ray, so its screen position — the plane's silhouette — is unchanged
+		// stays on its ray, so its screen position (the plane's silhouette) is unchanged
 		float t = smoothstep(0.25, 1.0, uv.y);
 		float b = 1.0 - smoothstep(0.0, 0.45, uv.y);
 		float L = u_wind * u_res.y * (t * t - 0.33 * b * b);
@@ -106,7 +106,7 @@ uniform vec4 u_uv;        // plane uv → box uv: xy offset, zw scale
 uniform vec4 u_clip;      // device px, gl_FragCoord space: x0, y0, x1, y1
 uniform float u_alpha;    // the element's own opacity (a figure fading inside the sheet)
 uniform float u_fade;     // the page's fade (a pull, a push, a leaving page): drawn as a mix toward the backdrop,
-uniform vec3 u_bg;        //   opaque — one layer with the DOM sheet fading over the same backdrop (planes.ts chainAlpha)
+uniform vec3 u_bg;        //   opaque: one layer with the DOM sheet fading over the same backdrop (planes.ts chainAlpha)
 uniform float u_H;
 
 uniform vec3 u_lightDir;

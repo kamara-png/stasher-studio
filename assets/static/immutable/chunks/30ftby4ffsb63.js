@@ -5523,7 +5523,7 @@ void main() {
   vec2 innerUV = smokeUV;
   vec2 outerUV = smokeUV;
 
-  // Vertical displacement — applied independently to inner and outer
+  // Vertical displacement: applied independently to inner and outer
   innerUV.y += u_innerDistortion * (1. - sst(0., 1., length(.4 * innerUV)));
   innerUV.y -= .4 * u_innerDistortion;
   innerUV.y += .7 * u_offset * roundness;

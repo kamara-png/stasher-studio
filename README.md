@@ -1,17 +1,17 @@
 # stasher studio
 
-The personal site of **Calvin Kamara** — graphic designer, game developer and the person behind **STASHER / ckay.png**. Built as a 1:1 structural copy of a design-studio site, restyled with Calvin's work and a purple theme.
+The personal site of **Calvin Kamara**, graphic designer, game developer and the person behind **STASHER / ckay.png**. Built as a 1:1 structural copy of a design-studio site, restyled with Calvin's work and a purple theme.
 
 ![stasher studio](brand/hero-still-1600.webp)
 
 ## What's here
 
-- **Home** — intro, selected work, experience, insights and a footer music widget.
-- **Work** — seven case studies: Q Lounge, Apps (Budgeter + Tendo), Generation Now, duo++, STASHER / ckay.png, Porsche 3D and Poster Art.
-- **Insights** — long-form design and development articles.
-- **About** — Calvin's story, stats, clients and testimonials.
-- **Contact** — email, WhatsApp, Instagram, LinkedIn, GitHub, Discord and Spotify.
-- **Legal** — privacy, cookies and terms pages.
+- **Home**: intro, selected work, experience, insights and a footer music widget.
+- **Work**: seven case studies: Q Lounge, Apps (Budgeter + Tendo), Generation Now, duo++, STASHER / ckay.png, Porsche 3D and Poster Art.
+- **Insights**: long-form design and development articles.
+- **About**: Calvin's story, stats, clients and testimonials.
+- **Contact**: email, WhatsApp, Instagram, LinkedIn, GitHub, Discord and Spotify.
+- **Legal**: privacy, cookies and terms pages.
 
 ## Design
 
@@ -41,7 +41,7 @@ node serve.mjs
 
 Then open [http://localhost:5173](http://localhost:5173). Set `PORT` to use a different port.
 
-> Do **not** use `npm run dev` — there is no `package.json`.
+> Do **not** use `npm run dev`; there is no `package.json`.
 
 ## Deployment
 
