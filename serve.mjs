@@ -58,6 +58,10 @@ function resolveFile(urlPath, search) {
   if (fs.existsSync(file + ".html")) return file + ".html";
   const variant = withQueryVariant(file, search);
   if (variant) return variant;
+  // The original site requests -768 video variants that are not in the offline copy.
+  // Serve the full-size file so the hero videos still animate on small screens.
+  const fullSize = file.replace(/-768(\.(?:webm|mp4))$/i, "$1");
+  if (fullSize !== file && fs.existsSync(fullSize) && fs.statSync(fullSize).isFile()) return fullSize;
   // a route without trailing slash: /work -> /work/index.html
   const asDir = path.join(file, "index.html");
   if (fs.existsSync(asDir)) return asDir;

@@ -196,7 +196,7 @@ void main() {`],[`	vec4 tex = texture2D(u_texture, cover(u_box, u_size, clamp(b,
 		float th = .5 + .43 * ss;                                      // high at first: only the peaks
 		float aa = max(fwidth(F), .002);
 		morphA = smoothstep(th - aa, th + aa, F);
-		col = mix(bl, vec3(1., 0., 0.), smoothstep(.12, .34, ss));     // red until the blobs have merged
+		col = mix(bl, vec3(0.545, 0.361, 0.965), smoothstep(.12, .34, ss));     // red until the blobs have merged
 	} else {
 		col = texture2D(u_texture, cover(u_box, u_size, clamp(b, 0.0, 1.0))).rgb;
 		if (u_vid > 0.) col = mix(col, texture2D(u_video, cover(u_box, u_vsize, clamp(b, 0.0, 1.0))).rgb, u_vid);
