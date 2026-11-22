@@ -104,6 +104,12 @@ http
       res.writeHead(400).end("Bad request");
       return;
     }
+    // The Q Lounge case study used to live at /work/mastercard-music.
+    if (urlPath === "/work/mastercard-music" || urlPath === "/work/mastercard-music/") {
+      res.writeHead(301, { location: `/work/q-lounge/${url.search}` });
+      res.end();
+      return;
+    }
     if (urlPath === "/api/now-playing") {
       const payload = Buffer.from(JSON.stringify(getCurrentPick()), "utf8");
       res.writeHead(200, {

@@ -1,13 +1,13 @@
 # stasher studio
 
-The personal site of **Calvin Kamara**, graphic designer, game developer and the person behind **STASHER / ckay.png**. Built as a 1:1 structural copy of a design-studio site, restyled with Calvin's work and a purple theme.
+The personal site of **Calvin Kamara**, graphic designer and game developer in Nairobi. Built as a 1:1 structural copy of a design-studio site, restyled with Calvin's work and a purple theme.
 
 ![stasher studio](brand/hero-still-1600.webp)
 
 ## What's here
 
 - **Home**: intro, selected work, experience, insights and a footer music widget.
-- **Work**: seven case studies: Q Lounge, Apps (Budgeter + Tendo), Generation Now, duo++, STASHER / ckay.png, Porsche 3D and Poster Art.
+- **Work**: six case studies: Q Lounge, Apps (Budgeter + Tendo), Generation Now, duo++, Porsche 3D and Poster Art.
 - **Insights**: long-form design and development articles.
 - **About**: Calvin's story, stats, clients and testimonials.
 - **Contact**: email, WhatsApp, Instagram, LinkedIn, GitHub, Discord and Spotify.
@@ -62,6 +62,7 @@ To refresh the pool, replace `data/playlist.json` with a fresh export of the pla
 ## Contact
 
 - Email: calvinkamarack@gmail.com
+- WhatsApp: [+254 141 663 900](https://wa.me/254141663900)
 - Instagram: [@ckay.png](https://instagram.com/ckay.png)
 - GitHub: [@kamara-png](https://github.com/kamara-png)
 - Spotify: [Kamarack](https://open.spotify.com/user/Kamarack)
