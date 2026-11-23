@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640" role="img" aria-label="Tendo habit, todo and streak tracker app shown on two phones">
+  <defs>
+    <linearGradient id="tBG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141d26"/>
+      <stop offset="1" stop-color="#1d2f3f"/>
+    </linearGradient>
+    <radialGradient id="tGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#70b9ee" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#70b9ee" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b4b5c"/>
+      <stop offset="0.5" stop-color="#223243"/>
+      <stop offset="1" stop-color="#17222d"/>
+    </linearGradient>
+    <linearGradient id="tScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17212b"/>
+      <stop offset="1" stop-color="#18242f"/>
+    </linearGradient>
+
+    <g id="t-check" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="0" r="7.5"/>
+      <path d="M-3.8 0 L-0.9 3 L3.9 -2.6"/>
+    </g>
+    <g id="t-ring" fill="none" stroke-width="1.8">
+      <circle cx="0" cy="0" r="7.5"/>
+    </g>
+    <g id="t-dot" fill="none" stroke-width="1.8">
+      <circle cx="0" cy="0" r="5"/>
+    </g>
+    <g id="t-dot-fill"><circle cx="0" cy="0" r="5"/></g>
+    <g id="t-alarm" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="0" r="6"/>
+      <path d="M0 -3.4 V0 L2.4 1.2"/>
+      <path d="M-6.6 -6.4 L-4.6 -4.4 M6.6 -6.4 L4.6 -4.4"/>
+    </g>
+    <g id="t-edit" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-6 6 v-3 l8 -8 3 3 -8 8 z"/>
+      <path d="M1 -5 l3 3"/>
+    </g>
+    <g id="t-trash" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-6 -3.5 H6 M-4 -3.5 v8 a1 1 0 0 0 1 1 h6 a1 1 0 0 0 1 -1 v-8 M-2 -3.5 v-2 h4 v2"/>
+    </g>
+    <g id="t-plus" fill="none" stroke-width="2" stroke-linecap="round">
+      <path d="M0 -6 V6 M-6 0 H6"/>
+    </g>
+    <g id="t-flame" fill="none" stroke-width="1.5" stroke-linejoin="round">
+      <path d="M0 -8 C -3 -4 -6 -2 -6 2 A6 6 0 0 0 6 2 C 6 -1 3 -3 2 -6 C 2 -3 0 -2 0 0 C -1.2 -2 -1.2 -5 0 -8 Z"/>
+    </g>
+    <g id="t-doc" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-6" y="-7.5" width="12" height="15" rx="2.5"/>
+      <line x1="-3" y1="-3" x2="3" y2="-3"/>
+      <line x1="-3" y1="0.5" x2="3" y2="0.5"/>
+      <line x1="-3" y1="4" x2="1" y2="4"/>
+    </g>
+    <g id="t-podium" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-6 5 v-4 M0 5 v-10 M6 5 v-6"/>
+    </g>
+    <g id="t-gear" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="0" r="2.6"/>
+      <path d="M0 -7 v2 M0 7 v-2 M7 0 h-2 M-7 0 h2 M5 -5 l-1.4 1.4 M-5 5 l1.4 -1.4 M5 5 l-1.4 -1.4 M-5 -5 l1.4 1.4"/>
+    </g>
+
+    <clipPath id="clip-t1"><rect x="431" y="57" width="240" height="526" rx="32"/></clipPath>
+    <clipPath id="clip-t2"><rect x="929" y="57" width="240" height="526" rx="32"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="640" fill="url(#tBG)"/>
+  <ellipse cx="800" cy="330" rx="640" ry="360" fill="url(#tGlow)"/>
+  <g opacity="0.16" fill="#70b9ee">
+    <circle cx="170" cy="140" r="2"/><circle cx="300" cy="510" r="2"/><circle cx="1400" cy="130" r="2"/>
+    <circle cx="1340" cy="500" r="2"/><circle cx="740" cy="80" r="2"/><circle cx="880" cy="600" r="2"/>
+  </g>
+
+  <!-- ================= PHONE 1 : To do's ================= -->
+  <rect x="420" y="46" width="262" height="548" rx="44" fill="url(#tFrame)" stroke="#3b4b5c" stroke-width="1.5"/>
+  <rect x="431" y="57" width="240" height="526" rx="32" fill="url(#tScreen)" stroke="#2e3d4b" stroke-width="1"/>
+  <rect x="514" y="68" width="74" height="22" rx="11" fill="#05070d"/>
+
+  <g clip-path="url(#clip-t1)">
+    <text x="449" y="82" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#e8e6ec">9:41</text>
+    <g fill="#e8e6ec" opacity="0.9">
+      <rect x="631" y="74" width="3" height="7" rx="0.8"/>
+      <rect x="636" y="72" width="3" height="9" rx="0.8"/>
+      <rect x="641" y="70" width="3" height="11" rx="0.8"/>
+      <rect x="650" y="72" width="14" height="8" rx="2" fill="none" stroke="#e8e6ec" stroke-width="1"/>
+      <rect x="652" y="74" width="8" height="4" rx="1"/>
+    </g>
+
+    <!-- header -->
+    <text x="551" y="113" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="900" fill="#e8e6ec">To do's</text>
+    <use href="#t-plus" transform="translate(651,104)" stroke="#70b9ee"/>
+
+    <!-- section 1 -->
+    <text x="447" y="137" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#98a4b3">Mon, Oct 12</text>
+
+    <g font-family="Inter, sans-serif">
+      <rect x="447" y="144" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-check" transform="translate(470,166)" stroke="#8fa9d9"/>
+      <text x="489" y="163" font-size="11.5" fill="#e8e6ec">Gym session</text>
+      <text x="489" y="177" font-size="8" font-weight="600" fill="#98a4b3">Alarm at 06:30</text>
+      <use href="#t-alarm" transform="translate(589,166)" stroke="#70b9ee"/>
+      <use href="#t-edit" transform="translate(613,166)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,166)" stroke="#fb414a"/>
+
+      <rect x="447" y="194" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-ring" transform="translate(470,216)" stroke="#7bbfa8"/>
+      <text x="489" y="220" font-size="11.5" fill="#e8e6ec">Read 20 pages</text>
+      <use href="#t-alarm" transform="translate(589,216)" stroke="#98a4b3"/>
+      <use href="#t-edit" transform="translate(613,216)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,216)" stroke="#fb414a"/>
+
+      <rect x="447" y="244" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-ring" transform="translate(470,266)" stroke="#d9a15f"/>
+      <text x="489" y="270" font-size="11.5" fill="#e8e6ec">Check emails</text>
+      <use href="#t-alarm" transform="translate(589,266)" stroke="#98a4b3"/>
+      <use href="#t-edit" transform="translate(613,266)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,266)" stroke="#fb414a"/>
+
+      <rect x="447" y="294" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-ring" transform="translate(470,316)" stroke="#d98a97"/>
+      <text x="489" y="320" font-size="11.5" fill="#e8e6ec">Walk the dog</text>
+      <use href="#t-alarm" transform="translate(589,316)" stroke="#98a4b3"/>
+      <use href="#t-edit" transform="translate(613,316)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,316)" stroke="#fb414a"/>
+
+      <rect x="447" y="344" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-ring" transform="translate(470,366)" stroke="#a99ad9"/>
+      <text x="489" y="370" font-size="11.5" fill="#e8e6ec">Study Blender</text>
+      <use href="#t-alarm" transform="translate(589,366)" stroke="#98a4b3"/>
+      <use href="#t-edit" transform="translate(613,366)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,366)" stroke="#fb414a"/>
+    </g>
+
+    <!-- section 2 -->
+    <text x="447" y="411" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#98a4b3">Sun, Oct 11</text>
+    <g font-family="Inter, sans-serif">
+      <rect x="447" y="418" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-check" transform="translate(470,440)" stroke="#9ac48f"/>
+      <text x="489" y="444" font-size="11.5" fill="#e8e6ec">Water the plants</text>
+      <use href="#t-alarm" transform="translate(589,440)" stroke="#98a4b3"/>
+      <use href="#t-edit" transform="translate(613,440)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,440)" stroke="#fb414a"/>
+
+      <rect x="447" y="468" width="208" height="44" rx="12" fill="#1f2c38"/>
+      <use href="#t-check" transform="translate(470,490)" stroke="#8fa9d9"/>
+      <text x="489" y="494" font-size="11.5" fill="#e8e6ec">Plan the week</text>
+      <use href="#t-alarm" transform="translate(589,490)" stroke="#98a4b3"/>
+      <use href="#t-edit" transform="translate(613,490)" stroke="#98a4b3"/>
+      <use href="#t-trash" transform="translate(637,490)" stroke="#fb414a"/>
+    </g>
+
+    <!-- floating tab bar -->
+    <rect x="941" y="516" width="216" height="46" rx="23" fill="#1f2c38" fill-opacity="0.94" stroke="#3a4b5c" stroke-width="1"/>
+    <g text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" font-weight="600">
+      <use href="#t-check" transform="translate(963,532) scale(0.85)" stroke="#70b9ee"/>
+      <text x="963" y="552" fill="#70b9ee">Todos</text>
+      <use href="#t-doc" transform="translate(1006,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1006" y="552" fill="#98a4b3">Notes</text>
+      <use href="#t-flame" transform="translate(1049,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1049" y="552" fill="#98a4b3">Streaks</text>
+      <use href="#t-podium" transform="translate(1092,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1092" y="552" fill="#98a4b3">Stats</text>
+      <use href="#t-gear" transform="translate(1135,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1135" y="552" fill="#98a4b3">Settings</text>
+    </g>
+  </g>
+
+  <!-- ================= PHONE 2 : Streaks ================= -->
+  <rect x="918" y="46" width="262" height="548" rx="44" fill="url(#tFrame)" stroke="#3b4b5c" stroke-width="1.5"/>
+  <rect x="929" y="57" width="240" height="526" rx="32" fill="url(#tScreen)" stroke="#2e3d4b" stroke-width="1"/>
+  <rect x="1012" y="68" width="74" height="22" rx="11" fill="#05070d"/>
+
+  <g clip-path="url(#clip-t2)">
+    <text x="947" y="82" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#e8e6ec">9:41</text>
+    <g fill="#e8e6ec" opacity="0.9">
+      <rect x="1129" y="74" width="3" height="7" rx="0.8"/>
+      <rect x="1134" y="72" width="3" height="9" rx="0.8"/>
+      <rect x="1139" y="70" width="3" height="11" rx="0.8"/>
+      <rect x="1148" y="72" width="14" height="8" rx="2" fill="none" stroke="#e8e6ec" stroke-width="1"/>
+      <rect x="1150" y="74" width="8" height="4" rx="1"/>
+    </g>
+
+    <text x="1049" y="113" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="900" fill="#e8e6ec">Streaks</text>
+    <use href="#t-plus" transform="translate(1149,104)" stroke="#70b9ee"/>
+
+    <!-- Card 1 : Workout (checked in) -->
+    <rect x="945" y="130" width="208" height="90" rx="12" fill="#1f2c38"/>
+    <use href="#t-flame" transform="translate(961,150)" stroke="#8fa9d9" fill="#8fa9d9" fill-opacity="0.25"/>
+    <text x="979" y="154" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#e8e6ec">Workout</text>
+    <use href="#t-edit" transform="translate(1123,150)" stroke="#98a4b3"/>
+    <use href="#t-trash" transform="translate(1143,150)" stroke="#fb414a"/>
+    <g font-family="Inter, sans-serif" text-anchor="middle" font-size="7.5" fill="#98a4b3">
+      <text x="961" y="178">M</text><text x="990" y="178">T</text><text x="1019" y="178">W</text>
+      <text x="1048" y="178">Th</text><text x="1078" y="178">F</text><text x="1107" y="178">Sat</text><text x="1136" y="178">S</text>
+    </g>
+    <g>
+      <use href="#t-dot-fill" transform="translate(961,192)" fill="#8fa9d9"/>
+      <use href="#t-dot-fill" transform="translate(990,192)" fill="#8fa9d9"/>
+      <use href="#t-dot" transform="translate(1019,192)" stroke="#98a4b3"/>
+      <use href="#t-dot-fill" transform="translate(1048,192)" fill="#8fa9d9"/>
+      <use href="#t-dot-fill" transform="translate(1078,192)" fill="#8fa9d9"/>
+      <use href="#t-dot" transform="translate(1107,192)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1136,192)" stroke="#98a4b3"/>
+    </g>
+    <rect x="961" y="202" width="176" height="17" rx="8.5" fill="#70b9ee"/>
+    <text x="1049" y="214" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" font-weight="700" fill="#0f1b24">Checked in</text>
+
+    <!-- Card 2 : No sugar -->
+    <rect x="945" y="228" width="208" height="90" rx="12" fill="#1f2c38"/>
+    <use href="#t-flame" transform="translate(961,248)" stroke="#d9a15f"/>
+    <text x="979" y="252" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#e8e6ec">No sugar</text>
+    <use href="#t-edit" transform="translate(1123,248)" stroke="#98a4b3"/>
+    <use href="#t-trash" transform="translate(1143,248)" stroke="#fb414a"/>
+    <g font-family="Inter, sans-serif" text-anchor="middle" font-size="7.5" fill="#98a4b3">
+      <text x="961" y="276">M</text><text x="990" y="276">T</text><text x="1019" y="276">W</text>
+      <text x="1048" y="276">Th</text><text x="1078" y="276">F</text><text x="1107" y="276">Sat</text><text x="1136" y="276">S</text>
+    </g>
+    <g>
+      <use href="#t-dot-fill" transform="translate(961,290)" fill="#d9a15f"/>
+      <use href="#t-dot" transform="translate(990,290)" stroke="#98a4b3"/>
+      <use href="#t-dot-fill" transform="translate(1019,290)" fill="#d9a15f"/>
+      <use href="#t-dot-fill" transform="translate(1048,290)" fill="#d9a15f"/>
+      <use href="#t-dot" transform="translate(1078,290)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1107,290)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1136,290)" stroke="#98a4b3"/>
+    </g>
+    <rect x="961" y="300" width="176" height="17" rx="8.5" fill="#17212b" stroke="#2e3d4b" stroke-width="1"/>
+    <text x="1049" y="312" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#e8e6ec">Check in today</text>
+
+    <!-- Card 3 : Meditate -->
+    <rect x="945" y="326" width="208" height="90" rx="12" fill="#1f2c38"/>
+    <use href="#t-flame" transform="translate(961,346)" stroke="#9ac48f"/>
+    <text x="979" y="350" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#e8e6ec">Meditate</text>
+    <use href="#t-edit" transform="translate(1123,346)" stroke="#98a4b3"/>
+    <use href="#t-trash" transform="translate(1143,346)" stroke="#fb414a"/>
+    <g font-family="Inter, sans-serif" text-anchor="middle" font-size="7.5" fill="#98a4b3">
+      <text x="961" y="374">M</text><text x="990" y="374">T</text><text x="1019" y="374">W</text>
+      <text x="1048" y="374">Th</text><text x="1078" y="374">F</text><text x="1107" y="374">Sat</text><text x="1136" y="374">S</text>
+    </g>
+    <g>
+      <use href="#t-dot" transform="translate(961,388)" stroke="#98a4b3"/>
+      <use href="#t-dot-fill" transform="translate(990,388)" fill="#9ac48f"/>
+      <use href="#t-dot-fill" transform="translate(1019,388)" fill="#9ac48f"/>
+      <use href="#t-dot-fill" transform="translate(1048,388)" fill="#9ac48f"/>
+      <use href="#t-dot" transform="translate(1078,388)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1107,388)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1136,388)" stroke="#98a4b3"/>
+    </g>
+    <rect x="961" y="398" width="176" height="17" rx="8.5" fill="#17212b" stroke="#2e3d4b" stroke-width="1"/>
+    <text x="1049" y="410" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#e8e6ec">Check in today</text>
+
+    <!-- Card 4 : Read (partly visible) -->
+    <rect x="945" y="424" width="208" height="90" rx="12" fill="#1f2c38"/>
+    <use href="#t-flame" transform="translate(961,444)" stroke="#a99ad9"/>
+    <text x="979" y="448" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#e8e6ec">Read daily</text>
+    <use href="#t-edit" transform="translate(1123,444)" stroke="#98a4b3"/>
+    <use href="#t-trash" transform="translate(1143,444)" stroke="#fb414a"/>
+    <g font-family="Inter, sans-serif" text-anchor="middle" font-size="7.5" fill="#98a4b3">
+      <text x="961" y="472">M</text><text x="990" y="472">T</text><text x="1019" y="472">W</text>
+      <text x="1048" y="472">Th</text><text x="1078" y="472">F</text><text x="1107" y="472">Sat</text><text x="1136" y="472">S</text>
+    </g>
+    <g>
+      <use href="#t-dot-fill" transform="translate(961,486)" fill="#a99ad9"/>
+      <use href="#t-dot-fill" transform="translate(990,486)" fill="#a99ad9"/>
+      <use href="#t-dot-fill" transform="translate(1019,486)" fill="#a99ad9"/>
+      <use href="#t-dot" transform="translate(1048,486)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1078,486)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1107,486)" stroke="#98a4b3"/>
+      <use href="#t-dot" transform="translate(1136,486)" stroke="#98a4b3"/>
+    </g>
+
+    <!-- floating tab bar -->
+    <rect x="941" y="516" width="216" height="46" rx="23" fill="#1f2c38" fill-opacity="0.94" stroke="#3a4b5c" stroke-width="1"/>
+    <g text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" font-weight="600">
+      <use href="#t-check" transform="translate(963,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="963" y="552" fill="#98a4b3">Todos</text>
+      <use href="#t-doc" transform="translate(1006,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1006" y="552" fill="#98a4b3">Notes</text>
+      <use href="#t-flame" transform="translate(1049,532) scale(0.85)" stroke="#70b9ee" fill="#70b9ee" fill-opacity="0.25"/>
+      <text x="1049" y="552" fill="#70b9ee">Streaks</text>
+      <use href="#t-podium" transform="translate(1092,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1092" y="552" fill="#98a4b3">Stats</text>
+      <use href="#t-gear" transform="translate(1135,532) scale(0.85)" stroke="#98a4b3"/>
+      <text x="1135" y="552" fill="#98a4b3">Settings</text>
+    </g>
+  </g>
+</svg>

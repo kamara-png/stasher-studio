@@ -227,11 +227,11 @@ html.motion .proj.is-gl .proj__card{background:transparent!important;box-shadow:
 .pj-simple .ql-kicker::before{content:"";width:26px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--pj-accent),var(--pj-accent2))}
 .pj-simple .pj__title{font-size:clamp(52px,9vw,116px);line-height:.92;letter-spacing:-.045em;margin:0 0 18px}
 .pj-simple .pj__desc{max-width:48ch;font-size:clamp(17px,1.7vw,21px);line-height:1.55;border-left:0;padding-left:0;margin-bottom:34px}
-.pj-simple .pj__fig--hero{border-radius:16px;overflow:hidden;margin-bottom:34px;box-shadow:0 18px 60px color-mix(in srgb,var(--pj-accent) 18%,transparent)}
-.pj-simple .pj__fig--hero img{width:100%;height:auto;max-height:56vh;object-fit:cover;display:block}
+.pj-simple .pj__fig--hero{display:flex;align-items:center;justify-content:center;border-radius:16px;overflow:hidden;margin-bottom:34px;box-shadow:0 18px 60px color-mix(in srgb,var(--pj-accent) 18%,transparent)}
+.pj-simple .pj__fig--hero img{width:auto;max-width:100%;height:auto;max-height:56vh;object-fit:contain;display:block;margin:auto;padding:0}
 .pj-simple .pj-story{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-bottom:36px}
 .pj-simple .pj-story>.pj__fig{width:100%;margin:0;clip-path:none!important}
-.pj-simple .pj__frame{aspect-ratio:16/10!important;border-radius:12px;background:color-mix(in srgb,var(--pj-bg) 76%,#000 24%)}
+.pj-simple .pj__frame{aspect-ratio:1080/1050!important;border-radius:12px;background:color-mix(in srgb,var(--pj-bg) 76%,#000 24%);display:flex;align-items:center;justify-content:center}
 .pj-simple .pj__cap{font-size:13px;line-height:1.4;padding:10px 2px 0;text-align:left;opacity:.78}
 .pj-simple .pj-mini__panel{padding:24px 0 40px;border-top:1px solid color-mix(in srgb,var(--pj-fg) 22%,transparent)}
 .pj-simple .pj-mini__panel .pj-st__label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
@@ -243,3 +243,80 @@ html.motion .proj.is-gl .proj__card{background:transparent!important;box-shadow:
   .pj-simple .pj__fig--hero img{max-height:42vh}
   .pj:has(.pj-simple) .pj-end{padding:44px 24px}
 }
+
+/* The homepage category covers use the project-track card language: 16:9, image fills the card,
+   caption outside the card, and the same GSAP depth track as melon's Latest Work. */
+.proj.cat-card .proj__img{object-fit:cover;padding:0}
+
+/* Standalone category listing and detail pages. */
+.cat-page .ew-main{padding-top:max(150px,22svh)}
+.cat-page .ew-lede{max-width:52ch}
+.cat-grid{align-items:start;gap:64px 24px}
+.cat-grid .ew-item{animation:catRise .8s cubic-bezier(.11,.06,.18,1) both}
+.cat-grid .ew-item:nth-child(2){animation-delay:.07s}
+.cat-grid .ew-item:nth-child(3){animation-delay:.14s}
+.cat-grid .ew-item:nth-child(4){animation-delay:.21s}
+.cat-grid .ew-item:nth-child(5){animation-delay:.28s}
+.cat-grid .ew-item:nth-child(6){animation-delay:.35s}
+.cat-grid .ew-img{aspect-ratio:var(--cat-ratio,4/5);background:#120b1d;border-radius:14px;padding:16px;box-shadow:inset 0 0 0 1px #8b5cf655,0 18px 60px #0005}
+.cat-grid .ew-img img{object-fit:contain;width:100%;height:100%}
+.cat-grid .ew-card:hover .ew-img img{transform:scale(1.02)}
+.cat-grid .ew-name{font-size:clamp(20px,1.8vw,27px)}
+.cat-grid .ew-kind{margin-top:2px}
+.cat-detail__media{width:min(100%,1100px);margin:0 auto;background:#120b1d;border-radius:18px;padding:clamp(16px,3vw,40px);box-shadow:inset 0 0 0 1px #8b5cf655,0 24px 80px #0007;animation:catRise .9s cubic-bezier(.11,.06,.18,1) both}
+.cat-detail__media img{display:block;width:auto;max-width:100%;height:auto;max-height:78vh;margin:auto;object-fit:contain}
+/* Pinterest-style masonry: natural image ratios, no crop, no stretch. */
+.cat-gallery{columns:4 260px;column-gap:24px;margin-top:9vh}
+.cat-gallery__item{break-inside:avoid;display:inline-block;width:100%;margin:0 0 24px;background:#120b1d;border-radius:14px;padding:14px;box-shadow:inset 0 0 0 1px #8b5cf644,0 18px 60px #0005;animation:catRise .8s cubic-bezier(.11,.06,.18,1) both;animation-delay:calc(var(--i) * 45ms);cursor:zoom-in;transition:transform .3s var(--appear-ease),box-shadow .3s}
+.cat-gallery__item:hover,.cat-gallery__item:focus-visible{transform:translateY(-4px);box-shadow:inset 0 0 0 1px #8b5cf688,0 24px 70px #0008}
+.cat-gallery__item img{display:block;width:auto;max-width:100%;height:auto;margin:auto;object-fit:contain;border-radius:8px}
+.cat-gallery__item figcaption{font:500 12px/1.35 var(--font-mono);letter-spacing:.01em;color:var(--muted);margin-top:12px}
+/* Native-image lightbox. */
+html.cat-lightbox-open,html.cat-lightbox-open body{overflow:hidden}
+.cat-lightbox{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:24px;background:color-mix(in srgb,#0d0018 94%,transparent);backdrop-filter:blur(12px)}
+.cat-lightbox[hidden]{display:none}
+.cat-lightbox__figure{margin:0;max-width:94vw;max-height:94vh;display:flex;flex-direction:column;align-items:center;gap:14px}
+.cat-lightbox__img{display:block;max-width:94vw;max-height:82vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 30px 90px #000a}
+.cat-lightbox__cap{font:500 13px/1.4 var(--font-mono);color:var(--muted);text-align:center}
+.cat-lightbox__close{position:absolute;top:20px;right:24px;width:44px;height:44px;border:1px solid color-mix(in srgb,var(--ink) 28%,transparent);border-radius:50%;background:color-mix(in srgb,#0d0018 80%,transparent);color:var(--ink);font:400 26px/1 var(--font);cursor:pointer}
+.cat-lightbox__close:hover{border-color:var(--red);color:var(--red-3)}
+@keyframes catRise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* Restored Work-page title/text/caption reveal sequence. */
+.cat-anim .ew-title[data-liquid-head]{will-change:filter,color;transform-origin:0 100%}
+.cat-anim .ew-lede .pp-lmask{display:block;overflow:clip;margin-bottom:-.08em;padding-bottom:.08em}
+.cat-anim .ew-lede .pp-ln{display:block;transform:translateY(112%);animation:catLineUp .9s cubic-bezier(.18,.66,.18,1) both}
+.cat-anim .ew-lede .pp-lmask:nth-child(1) .pp-ln{animation-delay:.22s}
+.cat-anim .ew-lede .pp-lmask:nth-child(2) .pp-ln{animation-delay:.30s}
+.cat-anim .ew-lede .pp-lmask:nth-child(3) .pp-ln{animation-delay:.38s}
+.cat-anim .ew-lede .pp-lmask:nth-child(4) .pp-ln{animation-delay:.46s}
+.cat-anim .ew-item .ew-img{animation:catMediaIn 1s cubic-bezier(.11,.06,.18,1) both}
+.cat-anim .ew-item:nth-child(1) .ew-img{animation-delay:.20s}
+.cat-anim .ew-item:nth-child(2) .ew-img{animation-delay:.27s}
+.cat-anim .ew-item:nth-child(3) .ew-img{animation-delay:.34s}
+.cat-anim .ew-item:nth-child(4) .ew-img{animation-delay:.41s}
+.cat-anim .ew-item:nth-child(5) .ew-img{animation-delay:.48s}
+.cat-anim .ew-item:nth-child(6) .ew-img{animation-delay:.55s}
+.cat-anim .ew-item .ew-cap,.cat-anim .ew-item>.ew-kind{animation:catMetaIn .8s cubic-bezier(.18,.66,.18,1) both}
+.cat-anim .ew-item:nth-child(1) :is(.ew-cap,>.ew-kind){animation-delay:.34s}
+.cat-anim .ew-item:nth-child(2) :is(.ew-cap,>.ew-kind){animation-delay:.41s}
+.cat-anim .ew-item:nth-child(3) :is(.ew-cap,>.ew-kind){animation-delay:.48s}
+.cat-anim .ew-item:nth-child(4) :is(.ew-cap,>.ew-kind){animation-delay:.55s}
+.cat-anim .ew-item:nth-child(5) :is(.ew-cap,>.ew-kind){animation-delay:.62s}
+.cat-anim .ew-item:nth-child(6) :is(.ew-cap,>.ew-kind){animation-delay:.69s}
+.cat-anim .cat-meta{animation:catMetaIn .8s cubic-bezier(.18,.66,.18,1) .46s both}
+.cat-anim .cat-detail__media{animation-delay:.24s}
+@keyframes catLineUp{to{transform:none}}
+@keyframes catMediaIn{from{opacity:0;transform:translateY(34px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes catMetaIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media(max-width:809.98px){
+  .cat-grid{gap:46px 16px}
+  .cat-grid .ew-img{padding:12px}
+  .cat-detail__media{border-radius:14px}
+  .f-free__logos{flex-wrap:wrap;overflow-x:clip}
+}
+
+/* Hold the original work cards until the category view replaces them.
+   The timed fallback keeps the cards visible if the setup script never runs. */
+html.work-pending .ew-grid,html.work-pending .ew-lede{visibility:hidden;animation:work-pending-reveal .01s 6s forwards}
+@keyframes work-pending-reveal{to{visibility:visible}}

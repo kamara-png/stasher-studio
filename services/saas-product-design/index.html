@@ -3,6 +3,11 @@
 
 /* stasher-post-hydration */
 (function () {
+  if (window.__stasherBooted) return;
+  window.__stasherBooted = true;
+  if (/^\/work(\/|$)/.test(location.pathname || '')) document.documentElement.classList.add('work-pending');
+  /* Register before Next's document-level router handler so work links stay in-page. */
+  window.addEventListener('click', function (e) { if (window.__stasherSoftClick) window.__stasherSoftClick(e); }, true);
   var hide = function (el) { if (!el) return; el.hidden = true; el.classList.add('pj-mini__hide'); el.style.setProperty('display', 'none', 'important'); };
   var WORK = {
     'q-lounge': { bg:'oklch(69.8% 0.2009 41.95)', fg:'oklch(19.1% 0.002 106.59)', card:'Listen, climb the ranking, win tickets.', overview:'Q Lounge turned listening into a live artist challenge: sign up, follow an artist, climb the ranking and unlock concert tickets. Four clear screens keep the whole journey moving.', summary:'A four-screen fan challenge built around a live artist ranking and a ticket reward.', chips:['User flows','Four-screen UI','Countdown','Motion','Hand-off'] },
@@ -15,7 +20,746 @@
   /* Old slug still present in the original React payload; keep it themed. */
   WORK['mastercard-music'] = WORK['q-lounge'];
 
+  var CATEGORIES = [
+    { slug:'posters', title:'Posters', kind:'Poster art', src:'/media/categories/posters.webp', w:1080, h:1350, alt:'Damaged Goods poster artwork', desc:'Bold type, texture and tight colour across film, music and character posters.' },
+    { slug:'cover-albums', title:'Cover Albums', kind:'Album covers', src:'/media/categories/cover-albums.webp', w:1000, h:1000, alt:'Spinx album cover artwork', desc:'Square cover art built to hold its own at thumbnail and full size.' },
+    { slug:'logos', title:'Logos', kind:'Identity marks', src:'/media/categories/logos.webp', w:1000, h:1000, alt:'Clarence Matheny Ministries logo', desc:'Clear, durable marks made for real-world use across screen and print.' },
+    { slug:'apps', title:'Apps', kind:'Mobile app screens', src:'/media/categories/apps.svg', w:1600, h:640, alt:'Budgeter expense and budget tracker app screens', desc:'Product screens and flows for calm, useful everyday mobile apps.' },
+    { slug:'promos', title:'Promos', kind:'Social promos', src:'/media/categories/promos.webp', w:1080, h:1080, alt:'Motivational quote promo', desc:'Short-form visual campaigns made for feeds, stories and quick sharing.' },
+    { slug:'mockups-print', title:'Mock Ups & Print Work', kind:'Mock-ups & print', src:'/media/categories/mockups-print.webp', w:1536, h:1024, alt:'Infinity Wellness Consultants business card mockups', desc:'Tangible brand applications, from business cards to presentation mock-ups.' }
+  ];
+
+  /* Generated from the Calvin Kamara portfolio source sections, in their original order. */
+  var CATEGORY_DATA = {
+  "workLede": "I design posters, cover albums, logos, apps, promos and print work, from the first idea to the finished file. Every cover keeps its original shape and full quality.",
+  "categories": [
+    {
+      "slug": "posters",
+      "title": "Posters",
+      "kind": "Poster art",
+      "desc": "Bold type, texture and tight colour across film, music and character posters.",
+      "cover": "/media/categories/posters.webp",
+      "w": 1080,
+      "h": 1350,
+      "images": [
+        {
+          "src": "/media/categories/posters/01-damaged-goods.webp",
+          "alt": "Damaged Goods poster art",
+          "caption": "Damaged Goods poster art",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/02-pot.webp",
+          "alt": "Damaged Goods poster art",
+          "caption": "Damaged Goods poster art",
+          "w": 720,
+          "h": 857
+        },
+        {
+          "src": "/media/categories/posters/03-ckay-xray.webp",
+          "alt": "Damaged Goods poster art",
+          "caption": "Damaged Goods poster art",
+          "w": 1088,
+          "h": 1446
+        },
+        {
+          "src": "/media/categories/posters/04-walter.webp",
+          "alt": "Walter poster art",
+          "caption": "Walter poster art",
+          "w": 1080,
+          "h": 1440
+        },
+        {
+          "src": "/media/categories/posters/05-the-substance.webp",
+          "alt": "The Substance film poster concept",
+          "caption": "The Substance film poster concept",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/06-void.webp",
+          "alt": "Void dark concept poster",
+          "caption": "Void dark concept poster",
+          "w": 736,
+          "h": 920
+        },
+        {
+          "src": "/media/categories/posters/07-knight.webp",
+          "alt": "Knight poster art",
+          "caption": "Knight poster art",
+          "w": 1080,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/posters/08-baldwin.webp",
+          "alt": "Baldwin poster portrait",
+          "caption": "Baldwin poster portrait",
+          "w": 736,
+          "h": 1050
+        },
+        {
+          "src": "/media/categories/posters/09-ghost-of-tshusima.webp",
+          "alt": "Ghost of Tsushima fan poster",
+          "caption": "Ghost of Tsushima fan poster",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/10-noisy.webp",
+          "alt": "Noisy grunge poster",
+          "caption": "Noisy grunge poster",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/11-valor-knight.webp",
+          "alt": "Valor Knight character poster",
+          "caption": "Valor Knight character poster",
+          "w": 540,
+          "h": 639
+        },
+        {
+          "src": "/media/categories/posters/12-nba.webp",
+          "alt": "NBA basketball poster",
+          "caption": "NBA basketball poster",
+          "w": 736,
+          "h": 736
+        },
+        {
+          "src": "/media/categories/posters/13-ruud.webp",
+          "alt": "Ruud sports poster",
+          "caption": "Ruud sports poster",
+          "w": 1080,
+          "h": 1440
+        },
+        {
+          "src": "/media/categories/posters/14-fear.webp",
+          "alt": "Fear horror poster concept",
+          "caption": "Fear horror poster concept",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/15-japan.webp",
+          "alt": "Japan travel poster art",
+          "caption": "Japan travel poster art",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/16-kai.webp",
+          "alt": "Kai character poster",
+          "caption": "Kai character poster",
+          "w": 473,
+          "h": 670
+        },
+        {
+          "src": "/media/categories/posters/17-lamelo.webp",
+          "alt": "LaMelo Ball sports poster",
+          "caption": "LaMelo Ball sports poster",
+          "w": 736,
+          "h": 736
+        },
+        {
+          "src": "/media/categories/posters/18-zion.webp",
+          "alt": "Zion sports poster",
+          "caption": "Zion sports poster",
+          "w": 1080,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/posters/19-kyrie.webp",
+          "alt": "Kyrie Irving sports poster",
+          "caption": "Kyrie Irving sports poster",
+          "w": 736,
+          "h": 736
+        },
+        {
+          "src": "/media/categories/posters/20-kobe.webp",
+          "alt": "Kobe Bryant tribute poster",
+          "caption": "Kobe Bryant tribute poster",
+          "w": 1080,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/posters/21-mj-swagger.webp",
+          "alt": "MJ Swagger basketball poster",
+          "caption": "MJ Swagger basketball poster",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/22-mf-doom.webp",
+          "alt": "MF Doom music poster tribute",
+          "caption": "MF Doom music poster tribute",
+          "w": 736,
+          "h": 920
+        },
+        {
+          "src": "/media/categories/posters/23-icarus.webp",
+          "alt": "Icarus 3D concept poster",
+          "caption": "Icarus 3D concept poster",
+          "w": 736,
+          "h": 1308
+        },
+        {
+          "src": "/media/categories/posters/24-f1-startrooper-2.webp",
+          "alt": "F1 Stormtrooper crossover poster",
+          "caption": "F1 Stormtrooper crossover poster",
+          "w": 736,
+          "h": 920
+        },
+        {
+          "src": "/media/categories/posters/25-duo-back-2.webp",
+          "alt": "duo++ apparel back print",
+          "caption": "duo++ apparel back print",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/posters/26-be-unique.webp",
+          "alt": "Be Unique motivational poster",
+          "caption": "Be Unique motivational poster",
+          "w": 736,
+          "h": 916
+        },
+        {
+          "src": "/media/categories/posters/27-knight-of-the-nine.webp",
+          "alt": "Knight of the Nine fantasy poster",
+          "caption": "Knight of the Nine fantasy poster",
+          "w": 736,
+          "h": 920
+        },
+        {
+          "src": "/media/categories/posters/28-look.webp",
+          "alt": "Look fashion poster",
+          "caption": "Look fashion poster",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/posters/29-ember.webp",
+          "alt": "Ember character poster",
+          "caption": "Ember character poster",
+          "w": 736,
+          "h": 929
+        },
+        {
+          "src": "/media/categories/posters/30-ikky-poster.webp",
+          "alt": "Ikky poster art",
+          "caption": "Ikky poster art",
+          "w": 4000,
+          "h": 4000
+        },
+        {
+          "src": "/media/categories/posters/31-wait.webp",
+          "alt": "Wait conceptual poster",
+          "caption": "Wait conceptual poster",
+          "w": 864,
+          "h": 1080
+        }
+      ]
+    },
+    {
+      "slug": "cover-albums",
+      "title": "Cover Albums",
+      "kind": "Album covers",
+      "desc": "Square cover art built to hold its own at thumbnail and full size.",
+      "cover": "/media/categories/cover-albums.webp",
+      "w": 1000,
+      "h": 1000,
+      "images": [
+        {
+          "src": "/media/categories/cover-albums/01-spinx-album-cover-3-1.webp",
+          "alt": "Spinx album cover 3.1",
+          "caption": "Spinx album cover 3.1",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/cover-albums/02-v4-vasco.webp",
+          "alt": "Vasco album cover v4",
+          "caption": "Vasco album cover v4",
+          "w": 768,
+          "h": 768
+        },
+        {
+          "src": "/media/categories/cover-albums/03-elevate-spinx.webp",
+          "alt": "Elevate Spinx cover",
+          "caption": "Elevate Spinx cover",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/cover-albums/04-bad-spinx-ac.webp",
+          "alt": "Bad Spinx album cover",
+          "caption": "Bad Spinx album cover",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/cover-albums/05-spinx-album-cover-4.webp",
+          "alt": "Spinx album cover 4",
+          "caption": "Spinx album cover 4",
+          "w": 500,
+          "h": 500
+        },
+        {
+          "src": "/media/categories/cover-albums/06-spinxs-talk-about-m.webp",
+          "alt": "Spinx Talk About M cover",
+          "caption": "Spinx Talk About M cover",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/cover-albums/07-vasco-diss-2.webp",
+          "alt": "Vasco diss track cover 2",
+          "caption": "Vasco diss track cover 2",
+          "w": 1024,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/cover-albums/08-yujoh-final-final-3000x3000.webp",
+          "alt": "Yujoh final album cover",
+          "caption": "Yujoh final album cover",
+          "w": 3000,
+          "h": 3000
+        },
+        {
+          "src": "/media/categories/cover-albums/09-spinx-top-boy.webp",
+          "alt": "Spinx Top Boy cover",
+          "caption": "Spinx Top Boy cover",
+          "w": 736,
+          "h": 736
+        },
+        {
+          "src": "/media/categories/cover-albums/10-vasco-diss.webp",
+          "alt": "Vasco diss single cover",
+          "caption": "Vasco diss single cover",
+          "w": 2000,
+          "h": 2000
+        },
+        {
+          "src": "/media/categories/cover-albums/11-sphinx-1.webp",
+          "alt": "Sphinx cover concept",
+          "caption": "Sphinx cover concept",
+          "w": 762,
+          "h": 700
+        },
+        {
+          "src": "/media/categories/cover-albums/12-stick-to-your-lane.webp",
+          "alt": "Stick To Your Lane single cover",
+          "caption": "Stick To Your Lane single cover",
+          "w": 736,
+          "h": 736
+        },
+        {
+          "src": "/media/categories/cover-albums/13-ckay-cover-albu.webp",
+          "alt": "CKAY album cover concept",
+          "caption": "CKAY album cover concept",
+          "w": 1500,
+          "h": 1500
+        }
+      ]
+    },
+    {
+      "slug": "logos",
+      "title": "Logos",
+      "kind": "Identity marks",
+      "desc": "Clear, durable marks made for real-world use across screen and print.",
+      "cover": "/media/categories/logos.webp",
+      "w": 1000,
+      "h": 1000,
+      "images": [
+        {
+          "src": "/media/categories/logos/01-cmm-logo.webp",
+          "alt": "Clarence Matheny Ministries logo",
+          "caption": "Clarence Matheny Ministries logo",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/logos/02-alpha-con.webp",
+          "alt": "Alpha Con logo",
+          "caption": "Alpha Con logo",
+          "w": 595,
+          "h": 842
+        },
+        {
+          "src": "/media/categories/logos/03-tendo-app-logo.webp",
+          "alt": "Tendo app logo mark",
+          "caption": "Tendo app logo mark",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/logos/04-tendo-app.webp",
+          "alt": "Tendo app full lockup",
+          "caption": "Tendo app full lockup",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/logos/05-budgeter-logo.png",
+          "alt": "Budgeter app logo mark",
+          "caption": "Budgeter app logo mark",
+          "w": null,
+          "h": null
+        },
+        {
+          "src": "/media/categories/logos/06-urban-sanaa.webp",
+          "alt": "Urban Sanaa logo",
+          "caption": "Urban Sanaa logo",
+          "w": 1536,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/logos/07-jommed.webp",
+          "alt": "Jommed brand logo",
+          "caption": "Jommed brand logo",
+          "w": 1024,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/logos/08-opps-fix-logo.webp",
+          "alt": "Oops Fix logo",
+          "caption": "Oops Fix logo",
+          "w": 1028,
+          "h": 1188
+        },
+        {
+          "src": "/media/categories/logos/09-flambe.webp",
+          "alt": "Flambe restaurant logo",
+          "caption": "Flambe restaurant logo",
+          "w": 2000,
+          "h": 2000
+        },
+        {
+          "src": "/media/categories/logos/10-stasher-logo.webp",
+          "alt": "STASHER personal creative brand logo",
+          "caption": "STASHER personal creative brand logo",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/logos/11-qlounge.webp",
+          "alt": "Q Lounge premium logo",
+          "caption": "Q Lounge premium logo",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/logos/12-skycharm.webp",
+          "alt": "Skycharm logo",
+          "caption": "Skycharm logo",
+          "w": 1024,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/logos/13-duo.webp",
+          "alt": "duo++ Y2K logo",
+          "caption": "duo++ Y2K logo",
+          "w": 540,
+          "h": 538
+        },
+        {
+          "src": "/media/categories/logos/14-fitvault.webp",
+          "alt": "Fitvault fitness logo",
+          "caption": "Fitvault fitness logo",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/logos/15-ohmz.webp",
+          "alt": "Ohmz logo",
+          "caption": "Ohmz logo",
+          "w": 1024,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/logos/16-fitvault2.webp",
+          "alt": "Fitvault alternate logo",
+          "caption": "Fitvault alternate logo",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/logos/17-stasher-logo-recovered.webp",
+          "alt": "Stasher creative brand logo",
+          "caption": "Stasher creative brand logo",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/logos/18-generationnow.webp",
+          "alt": "Generation Now mental health logo",
+          "caption": "Generation Now mental health logo",
+          "w": 1004,
+          "h": 591
+        },
+        {
+          "src": "/media/categories/logos/19-intellecta.webp",
+          "alt": "Intellecta logo",
+          "caption": "Intellecta logo",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/logos/20-kisaka-drips-3-1.webp",
+          "alt": "Kisaka Drips streetwear logo",
+          "caption": "Kisaka Drips streetwear logo",
+          "w": 1920,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/logos/21-vasco.webp",
+          "alt": "Vasco artist logo",
+          "caption": "Vasco artist logo",
+          "w": 1536,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/logos/22-infinity-gaming.webp",
+          "alt": "Infinity Gaming esports logo",
+          "caption": "Infinity Gaming esports logo",
+          "w": 1366,
+          "h": 768
+        }
+      ]
+    },
+    {
+      "slug": "apps",
+      "title": "Apps",
+      "kind": "Mobile app screens",
+      "desc": "Product screens and flows for calm, useful everyday mobile apps.",
+      "cover": "/media/categories/apps.svg",
+      "w": 1600,
+      "h": 640,
+      "images": [
+        {
+          "src": "/media/categories/apps/01-budgeter-app.svg",
+          "alt": "Budgeter expense and budget tracker app screens",
+          "caption": "Budgeter expense and budget tracker app screens",
+          "w": 1600,
+          "h": 640
+        },
+        {
+          "src": "/media/categories/apps/02-tendo-app.svg",
+          "alt": "Tendo habit, todo and streak tracker app screens",
+          "caption": "Tendo habit, todo and streak tracker app screens",
+          "w": 1600,
+          "h": 640
+        }
+      ]
+    },
+    {
+      "slug": "promos",
+      "title": "Promos",
+      "kind": "Social promos",
+      "desc": "Short-form visual campaigns made for feeds, stories and quick sharing.",
+      "cover": "/media/categories/promos.webp",
+      "w": 1080,
+      "h": 1080,
+      "images": [
+        {
+          "src": "/media/categories/promos/01-motivation-quote.webp",
+          "alt": "Motivational quote promo",
+          "caption": "Motivational quote promo",
+          "w": 1080,
+          "h": 1080
+        },
+        {
+          "src": "/media/categories/promos/02-ekomed-poster.webp",
+          "alt": "Ekomed promo poster",
+          "caption": "Ekomed promo poster",
+          "w": 1000,
+          "h": 1000
+        },
+        {
+          "src": "/media/categories/promos/03-canva-1.webp",
+          "alt": "Canva promo design 1",
+          "caption": "Canva promo design 1",
+          "w": 1414,
+          "h": 2000
+        },
+        {
+          "src": "/media/categories/promos/04-canva-2.webp",
+          "alt": "Canva promo design 2",
+          "caption": "Canva promo design 2",
+          "w": 1080,
+          "h": 1350
+        },
+        {
+          "src": "/media/categories/promos/05-mum-poster.webp",
+          "alt": "Generation Now event poster",
+          "caption": "Generation Now event poster",
+          "w": 1587,
+          "h": 2245
+        },
+        {
+          "src": "/media/categories/promos/06-mum-portfolio.webp",
+          "alt": "Generation Now portfolio promo",
+          "caption": "Generation Now portfolio promo",
+          "w": 1587,
+          "h": 2245
+        }
+      ]
+    },
+    {
+      "slug": "mockups-print",
+      "title": "Mock Ups & Print Work",
+      "kind": "Mock-ups & print",
+      "desc": "Tangible brand applications, from business cards to presentation mock-ups.",
+      "cover": "/media/categories/mockups-print.webp",
+      "w": 1536,
+      "h": 1024,
+      "images": [
+        {
+          "src": "/media/categories/mockups-print/01-mum-biz-card-front.webp",
+          "alt": "Infinity Wellness Consultants business card — logo side",
+          "caption": "Infinity Wellness Consultants business card — logo side",
+          "w": 1050,
+          "h": 600
+        },
+        {
+          "src": "/media/categories/mockups-print/02-mum-biz-card-back.webp",
+          "alt": "Infinity Wellness Consultants business card — details side",
+          "caption": "Infinity Wellness Consultants business card — details side",
+          "w": 1050,
+          "h": 600
+        },
+        {
+          "src": "/media/categories/mockups-print/03-cmm-cert.webp",
+          "alt": "Clarence Matheny Bible College assessment certificate",
+          "caption": "Clarence Matheny Bible College assessment certificate",
+          "w": 2000,
+          "h": 1414
+        },
+        {
+          "src": "/media/categories/mockups-print/04-business-cards.webp",
+          "alt": "Infinity Wellness Consultants business card mockups",
+          "caption": "Infinity Wellness Consultants business card mockups",
+          "w": 1536,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/mockups-print/05-qlounge-sign.webp",
+          "alt": "Q Lounge exterior signage mockup",
+          "caption": "Q Lounge exterior signage mockup",
+          "w": 1280,
+          "h": 1165
+        },
+        {
+          "src": "/media/categories/mockups-print/06-float.webp",
+          "alt": "float",
+          "caption": "float",
+          "w": 1080,
+          "h": 1920
+        },
+        {
+          "src": "/media/categories/mockups-print/07-porsche-render.webp",
+          "alt": "porsche render",
+          "caption": "porsche render",
+          "w": 720,
+          "h": 1280
+        },
+        {
+          "src": "/media/categories/mockups-print/08-og.webp",
+          "alt": "OG",
+          "caption": "OG",
+          "w": 1080,
+          "h": 1920
+        },
+        {
+          "src": "/media/categories/mockups-print/09-ekomed.webp",
+          "alt": "Ekomed brand mockup",
+          "caption": "Ekomed brand mockup",
+          "w": 1024,
+          "h": 1536
+        },
+        {
+          "src": "/media/categories/mockups-print/10-cmm-gold-stamp.webp",
+          "alt": "CMM gold stamp logo mockup",
+          "caption": "CMM gold stamp logo mockup",
+          "w": 500,
+          "h": 500
+        },
+        {
+          "src": "/media/categories/mockups-print/11-qlounde.webp",
+          "alt": "Q Lounge brand application",
+          "caption": "Q Lounge brand application",
+          "w": 853,
+          "h": 1280
+        },
+        {
+          "src": "/media/categories/mockups-print/12-qlounge-1.webp",
+          "alt": "Q Lounge alternate mockup",
+          "caption": "Q Lounge alternate mockup",
+          "w": 853,
+          "h": 1280
+        },
+        {
+          "src": "/media/categories/mockups-print/13-qlounge-embroidery.webp",
+          "alt": "Q Lounge embroidery mockup",
+          "caption": "Q Lounge embroidery mockup",
+          "w": 1024,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/mockups-print/14-oops-fix-cap-mockup.webp",
+          "alt": "Oops Fix cap mockup",
+          "caption": "Oops Fix cap mockup",
+          "w": 1250,
+          "h": 833
+        },
+        {
+          "src": "/media/categories/mockups-print/15-oopsfix-shirt-mockup.webp",
+          "alt": "Oops Fix shirt mockup",
+          "caption": "Oops Fix shirt mockup",
+          "w": 1275,
+          "h": 1275
+        },
+        {
+          "src": "/media/categories/mockups-print/16-cmm-cap-mockup.webp",
+          "alt": "CMM cap mockup",
+          "caption": "CMM cap mockup",
+          "w": 1024,
+          "h": 1024
+        },
+        {
+          "src": "/media/categories/mockups-print/17-cmm-shirt-mockup.webp",
+          "alt": "CMM shirt mockup",
+          "caption": "CMM shirt mockup",
+          "w": 1066,
+          "h": 1600
+        },
+        {
+          "src": "/media/categories/mockups-print/18-oops-fix-cup-mockup.webp",
+          "alt": "Oops Fix branded cup mockup",
+          "caption": "Oops Fix branded cup mockup",
+          "w": 1280,
+          "h": 853
+        }
+      ]
+    }
+  ]
+};
+
   function setText(el, text) { if (!el) return; el.textContent = text; }
+  function setSplitText(el, text) {
+    if (!el) return;
+    el.textContent = '';
+    el.setAttribute('aria-label', text);
+    var word = document.createElement('span');
+    word.className = 'ts-w';
+    word.setAttribute('aria-hidden', 'true');
+    var inner = document.createElement('span');
+    inner.className = 'ts-c';
+    inner.textContent = text;
+    word.appendChild(inner);
+    el.appendChild(word);
+  }
   function replaceInTextNodes(root, pairs) {
     if (!root) return;
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
@@ -89,6 +833,7 @@
   }
 
   function apply() {
+    if (window.__stasherApplied) return;
     window.__stasherApplied = true;
 
     /* Final DOM keeps one stylesheet link with content; the other links are now empty files. */
@@ -98,12 +843,251 @@
       else if (h.indexOf('/assets/portfolio/overrides.css') !== -1) l.setAttribute('href', '/assets/portfolio/site.css');
     });
 
+    /* Work index and category pages keep the original React shell so the site's own
+       scroll-driven liquid module runs. The category DOM is injected after hydration. */
+    var CATEGORY_BY_SLUG = {};
+    CATEGORY_DATA.categories.forEach(function (c) { CATEGORY_BY_SLUG[c.slug] = c; });
+    function escAttr(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    }
+    function workLines(text) {
+      var words = String(text).split(/\s+/), lines = [], line = '';
+      words.forEach(function (w) {
+        if (!line) line = w;
+        else if ((line + ' ' + w).length <= 42) line += ' ' + w;
+        else { lines.push(line); line = w; }
+      });
+      if (line) lines.push(line);
+      return lines.map(function (l) {
+        return '<span class="pp-lmask" aria-hidden="true"><span class="pp-ln">' + escAttr(l) + '</span></span>';
+      }).join('');
+    }
+    function workCard(c, i) {
+      return '<li class="ew-item"><a class="ew-card" href="/work/' + c.slug + '">' +
+        '<span class="ew-img" style="--cat-ratio:' + c.w + '/' + c.h + '">' +
+        '<img alt="' + escAttr(c.title + ' cover') + '" loading="' + (i < 3 ? 'eager' : 'lazy') +
+        '" width="' + c.w + '" height="' + c.h + '" decoding="async" src="' + c.cover + '"></span>' +
+        '<span class="ew-cap"><span class="ew-name">' + escAttr(c.title) + '</span>' +
+        '<span class="ew-kind">' + escAttr(c.kind) + '</span></span>' +
+        '<span class="ew-kind">' + escAttr(c.desc) + '</span></a></li>';
+    }
+    function workGallery(c) {
+      return c.images.map(function (im, i) {
+        var dim = im.w && im.h ? ' width="' + im.w + '" height="' + im.h + '"' : '';
+        return '<figure class="cat-gallery__item" style="--i:' + i + '">' +
+          '<img alt="' + escAttr(im.alt || im.caption) + '"' + dim +
+          ' loading="lazy" decoding="async" src="' + im.src + '">' +
+          '<figcaption>' + escAttr(im.caption) + '</figcaption></figure>';
+      }).join('');
+    }
+    function applyWork() {
+      var path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+      if (path !== '/work' && path.indexOf('/work/') !== 0) return;
+      var main = document.querySelector('.ew-main');
+      if (!main || main.__workCategoriesDone) return;
+      main.__workCategoriesDone = true;
+      document.documentElement.classList.remove('work-pending');
+      document.body.classList.add('cat-page', 'cat-anim');
+
+      var grid = main.querySelector('.ew-grid');
+      var oldGallery = main.querySelector('.cat-gallery');
+      var title = main.querySelector('.ew-title');
+      var lede = main.querySelector('.ew-lede');
+      document.querySelectorAll('link[rel="preload"][as="image"]').forEach(function (l) {
+        if ((l.getAttribute('href') || '').indexOf('/media/projects/') !== -1) l.remove();
+      });
+
+      if (path === '/work') {
+        if (title) title.setAttribute('data-liquid-head', '0.24');
+        if (lede) {
+          /* Replace the node instead of editing it: hydration rewrites the original
+             element's text later, which used to flicker back to the old copy. */
+          var freshLede = lede.cloneNode(false);
+          freshLede.removeAttribute('data-pr');
+          freshLede.innerHTML = workLines(CATEGORY_DATA.workLede);
+          freshLede.setAttribute('aria-label', CATEGORY_DATA.workLede);
+          lede.parentNode.replaceChild(freshLede, lede);
+        }
+        if (oldGallery) oldGallery.parentNode.removeChild(oldGallery);
+        if (!grid) { grid = document.createElement('div'); main.appendChild(grid); }
+        grid.className = 'ew-grid cat-grid';
+        grid.setAttribute('aria-label', 'Work categories');
+        grid.innerHTML = CATEGORY_DATA.categories.map(workCard).join('');
+        document.querySelectorAll('script[type="application/ld+json"]').forEach(function (s) {
+          try {
+            var d = JSON.parse(s.textContent);
+            if (d['@type'] !== 'ItemList') return;
+            d.numberOfItems = CATEGORY_DATA.categories.length;
+            d.itemListElement = CATEGORY_DATA.categories.map(function (c, i) {
+              return { '@type': 'ListItem', position: i + 1, name: c.title, url: 'https://stasher.studio/work/' + c.slug };
+            });
+            s.textContent = JSON.stringify(d);
+          } catch (e) { /* leave invalid JSON untouched */ }
+        });
+        return;
+      }
+
+      var slug = path.split('/')[2];
+      var cat = CATEGORY_BY_SLUG[slug];
+      if (!cat) return;
+      document.title = cat.title + ' | stasher studio';
+      var detailMeta = document.querySelector('meta[name="description"]');
+      if (detailMeta) detailMeta.setAttribute('content', cat.desc);
+      if (title) {
+        title.textContent = cat.title;
+        title.setAttribute('data-liquid-head', '0.24');
+      }
+      if (lede) {
+        var freshLede = lede.cloneNode(false);
+        freshLede.removeAttribute('data-pr');
+        freshLede.innerHTML = workLines(cat.desc);
+        freshLede.setAttribute('aria-label', cat.desc);
+        lede.parentNode.replaceChild(freshLede, lede);
+      }
+      var gallery = document.createElement('div');
+      gallery.className = 'cat-gallery';
+      gallery.innerHTML = workGallery(cat);
+      if (grid) grid.parentNode.replaceChild(gallery, grid);
+      else if (oldGallery) oldGallery.parentNode.replaceChild(gallery, oldGallery);
+      else main.appendChild(gallery);
+      document.querySelectorAll('script[type="application/ld+json"]').forEach(function (s) {
+        try {
+          var d = JSON.parse(s.textContent);
+          if (d['@type'] === 'ItemList') {
+            d['@type'] = 'CreativeWork';
+            d.name = cat.title;
+            d.url = 'https://stasher.studio/work/' + cat.slug;
+            d.description = cat.desc;
+            d.contributor = { '@type': 'Person', name: 'Calvin Kamara', url: 'https://stasher.studio/about' };
+            delete d.numberOfItems;
+            delete d.itemListElement;
+          }
+          s.textContent = JSON.stringify(d);
+        } catch (e) { /* leave invalid JSON untouched */ }
+      });
+      if (!window.__stasherSoftRendering) requestAnimationFrame(function () { window.dispatchEvent(new Event('resize')); });
+    }
+    applyWork();
+
+    /* Work views navigate inside this document. The old script rewrote the page on a
+       1.5s interval and every category link caused a full reload, which lost the
+       visitor's place and made the site look like it kept reloading itself. */
+    (function () {
+      if (window.__workNavBound) return;
+      window.__workNavBound = true;
+      function clean(raw) {
+        if (!raw) return '';
+        return (raw.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/');
+      }
+      function isCategory(p) {
+        return p === '/work' || (p.indexOf('/work/') === 0 && !!CATEGORY_BY_SLUG[p.split('/')[2]]);
+      }
+      function show(p, push) {
+        var main = document.querySelector('main');
+        if (!main) { location.href = p; return; }
+        main.style.visibility = 'hidden';
+        fetch(p, { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var next = doc.querySelector('main');
+          if (!next) { location.href = p; return; }
+          /* Liquid headings keep a numeric font-size when the old DOM is detached,
+             otherwise the blur filter is built with NaN dimensions. */
+          main.querySelectorAll('[data-liquid-head],.ew-title,.work__heading,.f-title,.ab-title2,.ab-sv__title,.ab-mf__statement,.ab-cta__title,.sv-title,.dc-title').forEach(function (h) {
+            try { h.style.fontSize = getComputedStyle(h).fontSize; } catch (e) {}
+          });
+          main.className = next.className || '';
+          main.innerHTML = next.innerHTML;
+          document.title = doc.title;
+          var nd = doc.querySelector('meta[name="description"]');
+          var cd = document.querySelector('meta[name="description"]');
+          if (nd && cd) cd.setAttribute('content', nd.getAttribute('content') || '');
+          if (push) history.pushState({ stasherWork: true }, '', p);
+          main.__workCategoriesDone = false;
+          window.__stasherSoftRendering = true;
+          applyWork();
+          window.__stasherSoftRendering = false;
+          document.documentElement.classList.remove('work-pending');
+          main.style.visibility = '';
+          void main.offsetHeight;
+          requestAnimationFrame(function () { window.scrollTo(0, push ? 0 : ((history.state && history.state.stasherScroll) || 0)); });
+        }).catch(function () { location.href = p; });
+      }
+      window.__stasherSoftClick = function (e) {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        var el = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!el || el.target === '_blank' || el.hasAttribute('download')) return;
+        var p = clean(el.getAttribute('href'));
+        if (!isCategory(p) || p === clean(location.pathname)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        history.replaceState({ ...(history.state || {}), stasherScroll: window.scrollY }, '', location.href);
+        show(p, true);
+      };
+      window.addEventListener('popstate', function () {
+        var p = clean(location.pathname);
+        if (isCategory(p)) show(p, false);
+        else location.reload();
+      });
+    })();
+
+    /* Category galleries behave like a Pinterest board: click a tile to see the
+       original image at its native ratio, with no crop or stretch. */
+    (function () {
+      var box = null, lastFocus = null;
+      function ensure() {
+        if (box) return box;
+        box = document.createElement('div');
+        box.className = 'cat-lightbox';
+        box.setAttribute('role', 'dialog');
+        box.setAttribute('aria-modal', 'true');
+        box.setAttribute('aria-label', 'Image viewer');
+        box.hidden = true;
+        box.innerHTML = '<button class="cat-lightbox__close" type="button" aria-label="Close image">&times;</button>' +
+          '<figure class="cat-lightbox__figure"><img class="cat-lightbox__img" alt="">' +
+          '<figcaption class="cat-lightbox__cap"></figcaption></figure>';
+        document.body.appendChild(box);
+        box.addEventListener('click', function (e) {
+          if (e.target === box || (e.target.closest && e.target.closest('.cat-lightbox__close'))) close();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (!box.hidden && e.key === 'Escape') close();
+        });
+        return box;
+      }
+      function open(fig) {
+        var img = fig.querySelector('img');
+        if (!img) return;
+        lastFocus = document.activeElement;
+        var b = ensure();
+        var big = b.querySelector('.cat-lightbox__img');
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt || '';
+        b.querySelector('.cat-lightbox__cap').textContent =
+          (fig.querySelector('figcaption') || { textContent: '' }).textContent;
+        b.hidden = false;
+        document.documentElement.classList.add('cat-lightbox-open');
+        b.querySelector('.cat-lightbox__close').focus();
+      }
+      function close() {
+        if (!box || box.hidden) return;
+        box.hidden = true;
+        box.querySelector('.cat-lightbox__img').removeAttribute('src');
+        document.documentElement.classList.remove('cat-lightbox-open');
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest) return;
+        var fig = e.target.closest('.cat-gallery__item');
+        if (fig) { e.preventDefault(); open(fig); }
+      });
+    })();
+
     /* Keep SEO copy aligned with the renamed, trimmed case-study list. */
     var metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       var cleanPath = location.pathname || '/';
       if (cleanPath.charAt(cleanPath.length - 1) === '/') cleanPath = cleanPath.slice(0, -1);
-      if (cleanPath === '/work') metaDescription.setAttribute('content', 'Selected UX/UI case studies by Calvin Kamara: Q Lounge, apps, brand identities, 3D and poster art.');
+      if (cleanPath === '/work') metaDescription.setAttribute('content', 'Selected work by Calvin Kamara: posters, cover albums, logos, apps, promos, mock-ups and print work.');
       else if (cleanPath === '/work/q-lounge') metaDescription.setAttribute('content', 'Q Lounge fan challenge: sign-up, live artist ranking and a concert-ticket reward, designed end to end by Calvin Kamara.');
     }
 
@@ -119,6 +1103,117 @@
     /* Client logos stay plain. */
     document.querySelectorAll('.f-cl__cap').forEach(function (e) { e.remove(); });
 
+    /* Client marks use the supplied artwork, cropped to the mark and matched in size. */
+    function swapClientLogo(oldSrc, newSrc, w, h) {
+      document.querySelectorAll('img[src="' + oldSrc + '"]').forEach(function (img) {
+        img.setAttribute('src', newSrc);
+        img.setAttribute('width', w);
+        img.setAttribute('height', h);
+        img.style.objectFit = 'contain';
+      });
+    }
+    /* Tall Generation Now mark: explicit 1.55em box so it matches the other client logos. */
+    function fitGenerationNow(oldSrc) {
+      document.querySelectorAll('img[src="' + oldSrc + '"]').forEach(function (img) {
+        img.setAttribute('src', '/media/portfolio/clients/generationnow.png');
+        img.style.width = 'clamp(66px, 1.55em, 84px)';
+        img.style.height = 'clamp(66px, 1.55em, 84px)';
+        img.style.objectFit = 'contain';
+      });
+    }
+    fitGenerationNow('/media/portfolio/clients/generationnow.webp');
+    fitGenerationNow('/media/portfolio/clients/generationnow.svg');
+    swapClientLogo('/media/portfolio/clients/qlounge.webp', '/media/portfolio/clients/qlounge.png', '590', '596');
+    swapClientLogo('/media/portfolio/clients/duo.webp', '/media/portfolio/clients/duo-plus.png', '869', '704');
+
+    /* CMM logo joins the client row after hydration, so React cannot drop it. */
+    var clientList = document.querySelector('#clients .f-cl');
+    if (clientList && !clientList.querySelector('img[src="/media/portfolio/clients/cmm.png"]')) {
+      var clientCell = document.createElement('li');
+      clientCell.className = 'f-cl__cell';
+      clientCell.setAttribute('data-ratio', 'wide');
+      clientCell.setAttribute('data-pr', 'el');
+      clientCell.setAttribute('aria-label', 'Clarence Matheny Ministries');
+      var clientInner = document.createElement('div');
+      clientInner.className = 'f-cl__in';
+      ['f-cl__mark', 'f-cl__colour'].forEach(function (cls) {
+        var span = document.createElement('span');
+        span.className = cls;
+        span.setAttribute('aria-hidden', 'true');
+        var img = document.createElement('img');
+        img.className = 'f-logo';
+        img.src = '/media/portfolio/clients/cmm.png';
+        img.alt = '';
+        img.width = 595;
+        img.height = 419;
+        img.setAttribute('style', '--w:1.42;--h:1');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        span.appendChild(img);
+        clientInner.appendChild(span);
+      });
+      clientCell.appendChild(clientInner);
+      clientList.appendChild(clientCell);
+    }
+
+    /* Urban Sanaa joins the client row after hydration, so React cannot drop it. */
+    if (clientList && !clientList.querySelector('img[src="/media/portfolio/clients/urban-sanaa.png"]')) {
+      var urbanCell = document.createElement('li');
+      urbanCell.className = 'f-cl__cell';
+      urbanCell.setAttribute('data-ratio', 'wide');
+      urbanCell.setAttribute('data-pr', 'el');
+      urbanCell.setAttribute('aria-label', 'Urban Sanaa');
+      var urbanInner = document.createElement('div');
+      urbanInner.className = 'f-cl__in';
+      ['f-cl__mark', 'f-cl__colour'].forEach(function (cls) {
+        var span = document.createElement('span');
+        span.className = cls;
+        span.setAttribute('aria-hidden', 'true');
+        var img = document.createElement('img');
+        img.className = 'f-logo';
+        img.src = '/media/portfolio/clients/urban-sanaa.png';
+        img.alt = '';
+        img.width = 612;
+        img.height = 408;
+        img.setAttribute('style', '--w:1.5;--h:1');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        span.appendChild(img);
+        urbanInner.appendChild(span);
+      });
+      urbanCell.appendChild(urbanInner);
+      clientList.appendChild(urbanCell);
+    }
+
+    /* Melon mark joins the client row after hydration, so React cannot drop it. */
+    if (clientList && !clientList.querySelector('img[src="/media/portfolio/clients/melon.svg"]')) {
+      var melonCell = document.createElement('li');
+      melonCell.className = 'f-cl__cell';
+      melonCell.setAttribute('data-ratio', 'wide');
+      melonCell.setAttribute('data-pr', 'el');
+      melonCell.setAttribute('aria-label', 'Melon');
+      var melonInner = document.createElement('div');
+      melonInner.className = 'f-cl__in';
+      ['f-cl__mark', 'f-cl__colour'].forEach(function (cls) {
+        var span = document.createElement('span');
+        span.className = cls;
+        span.setAttribute('aria-hidden', 'true');
+        var img = document.createElement('img');
+        img.className = 'f-logo';
+        img.src = '/media/portfolio/clients/melon.svg';
+        img.alt = '';
+        img.width = 796;
+        img.height = 505;
+        img.setAttribute('style', '--w:1.576;--h:1');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        span.appendChild(img);
+        melonInner.appendChild(span);
+      });
+      melonCell.appendChild(melonInner);
+      clientList.appendChild(melonCell);
+    }
+
     /* Legal text refers to Calvin Kamara / stasher studio in Nairobi. */
     var legal = [
       [/ul\. Ko[^,]{0,40}lok\. 24,\s*60-536\s*Nairobi, Kenya, tax ID \(NIP\)\s*\d+,\s*REGON\s*\d+\./gi, 'Nairobi, Kenya.'],
@@ -130,6 +1225,30 @@
       [/STASHER \/ ckay\.png/g, 'Calvin Kamara']
     ];
     replaceInTextNodes(document.body, legal);
+    /* Hydration can restore old text after the first pass. Watch briefly for the
+       stale brand name and fix it once, then stop observing. */
+    (function () {
+      function fixStale() {
+        legal.forEach(function (p) { p[0].lastIndex = 0; });
+        var before = document.body.textContent;
+        replaceInTextNodes(document.body, legal);
+        legal.forEach(function (p) { p[0].lastIndex = 0; });
+        /* Split-text headings keep the old brand name in per-character spans, so
+           a whole-text-node replace cannot see it. */
+        document.querySelectorAll('.f-xp__company').forEach(function (h) {
+          var label = h.getAttribute('aria-label') || '';
+          if (label.indexOf('STASHER / ckay') >= 0 || (h.textContent || '').indexOf('STASHER / ckay') >= 0) {
+            h.setAttribute('aria-label', 'Calvin Kamara');
+            h.textContent = 'Calvin Kamara';
+          }
+        });
+        return document.body.textContent !== before;
+      }
+      var watch = new MutationObserver(function () { fixStale(); });
+      watch.observe(document.body, { subtree: true, childList: true, characterData: true });
+      fixStale();
+      setTimeout(function () { watch.disconnect(); }, 12000);
+    })();
 
     /* Retire the personal-brand case study from every work listing. */
     document.querySelectorAll('script[type="application/ld+json"]').forEach(function (s) {
@@ -230,6 +1349,44 @@
       }, true);
     }
 
+    /* Homepage latest work now uses the six category covers, in their native ratios. */
+    var cards = [].slice.call(document.querySelectorAll('.proj[data-slug]'));
+    if ((location.pathname === '/' || location.pathname === '/index.html') && cards.length === CATEGORIES.length && !cards[0].__catDone) {
+      cards.forEach(function (card, i) {
+        var d = CATEGORIES[i];
+        card.__catDone = true;
+        card.setAttribute('data-slug', d.slug);
+        card.removeAttribute('data-video');
+        card.classList.add('cat-card');
+        card.style.setProperty('--card-ratio', d.w + '/' + d.h);
+        card.style.aspectRatio = d.w + ' / ' + d.h;
+        card.setAttribute('aria-label', d.title + ': open category');
+        var link = card.querySelector('a.proj__card');
+        if (link) {
+          link.setAttribute('href', '/work/' + d.slug);
+          link.setAttribute('aria-label', d.title + ': open category');
+        }
+        var img = card.querySelector('img.proj__img');
+        if (img) {
+          img.setAttribute('src', d.src);
+          img.setAttribute('srcset', '');
+          img.setAttribute('sizes', '');
+          img.setAttribute('alt', d.alt);
+          img.setAttribute('width', d.w);
+          img.setAttribute('height', d.h);
+          img.setAttribute('loading', i < 3 ? 'eager' : 'lazy');
+          img.setAttribute('fetchpriority', i < 3 ? 'high' : 'auto');
+          img.style.objectFit = 'contain';
+          img.style.padding = '14px';
+        }
+        setSplitText(card.querySelector('.proj__title'), d.title);
+        setText(card.querySelector('.proj__kind'), d.kind);
+      });
+      document.querySelectorAll('link[rel="preload"][as="image"]').forEach(function (l) {
+        if ((l.getAttribute('href') || '').indexOf('/media/projects/') !== -1) l.remove();
+      });
+    }
+
     /* Latest-work cards: themed from their cover, with a one-line overview. */
     document.querySelectorAll('.proj[data-slug]').forEach(function (card) {
       var d = WORK[card.getAttribute('data-slug')];
@@ -315,6 +1472,8 @@
           /* Q Lounge is the name we use; this page gets a calmer, simpler layout. */
           if (slug === 'q-lounge') {
             main.classList.add('pj-simple');
+            /* Image-only case study: drop the hero video and any stale video nodes. */
+            document.querySelectorAll('video').forEach(function (v) { v.remove(); });
             /* Client and agency links become plain text. */
             document.querySelectorAll('a.pj__ext').forEach(function (a) {
               var s = document.createElement('span');
@@ -388,9 +1547,8 @@
       ].join('|');
       if (fingerprint === last) {
         stable++;
-        if (stable >= 12) {
+        if (stable >= 6) {
           apply();
-          setInterval(apply, 1500);
           return;
         }
       }
@@ -402,74 +1560,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready);
   else ready();
 })();
+/* end-stasher-post-hydration */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(function(){
-  addEventListener('click', function(e){
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-    if (!a || a.target === '_blank' || a.hasAttribute('download') || a.hasAttribute('data-external')) return;
-    var href = a.getAttribute('href');
-    if (!href || href.charAt(0) === '#' || /^(mailto:|tel:|javascript:|https?:)/i.test(href)) return;
-    e.preventDefault();
-    e.stopPropagation();
-    location.assign(href);
-  }, true);
-})();
 </script><link rel="stylesheet" href="https://use.typekit.net/omg1nuw.css"/><script src="/assets/static/immutable/chunks/0c0hxoamwjsbw.js" noModule=""></script><link rel="stylesheet" href="/assets/portfolio/overrides.css"/></head><body><div hidden=""><!--$--><!--/$--></div><a class="skip sr-only" href="#main">Skip to content</a><div class="ab-page sv-page"><header class="topbar ew-bar"><a class="topbar__logo" aria-label="stasher studio, home" href="/"><img alt="stasher studio" loading="eager" width="110" height="50" decoding="async" data-nimg="1" style="color:transparent" src="/brand/Logo-melon.svg?dpl=dpl_YgsZKvHvtCsxbyjvVEwYQpsg5LjE"/></a><nav class="topbar__nav" aria-label="Main"><a class="f-u" href="/work"><span class="f-nav__in">work<sup class="count">(<!-- -->7<!-- -->)</sup></span></a><a class="f-u" href="/about"><span class="f-nav__in">about</span></a><a class="f-u" href="/contact"><span class="f-nav__in">contact</span></a></nav></header><main class="ab sv" id="main" tabindex="-1"><section class="sv-hero f-grid" aria-labelledby="sv-title"><h1 class="sv-title" id="sv-title">SaaS Product<em> Design</em></h1><div class="sv-hero__side" data-pg="true"><p class="sv-lead" data-pr="lines">I design SaaS products and apps from the first flow to the last edge case: research, UX, the interface and a prototype that proves it. Often in code, always with the people who will build it.</p><div data-pr="el"><a class="f-showall" href="/contact"><span class="f-roll"><span class="f-roll__in"><span class="f-roll__t">Start a project</span><span class="f-roll__t f-roll__t--b" aria-hidden="true">Start a project</span></span></span><span class="f-showall__arrs" aria-hidden="true"><svg class="f-showall__arr" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4"></path></svg><svg class="f-showall__arr f-showall__arr--b" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4"></path></svg></span></a></div></div></section><section class="ab-sec ab-sv" aria-labelledby="sv-included"><div class="f-grid"><h2 class="ab-sv__title" id="sv-included">What&#x27;s included</h2><p class="ab-sv__run" data-pg="true" data-pr="el"><span class="ab-sv__n">Research and flows</span><i class="ab-sv__sep" aria-hidden="true"> / </i><span class="ab-sv__n">Apps and dashboards</span><i class="ab-sv__sep" aria-hidden="true"> / </i><span class="ab-sv__n">Design systems</span><i class="ab-sv__sep" aria-hidden="true"> / </i><span class="ab-sv__n">Prototypes</span></p><ul class="ab-sv__texts" data-pg="true"><li><h3 data-pr="lines">Research and flows</h3><p data-pr="lines">Who uses the product, what they need to get done and where they get stuck. The flows are mapped before the first screen.</p></li><li><h3 data-pr="lines">Apps and dashboards</h3><p data-pr="lines">Web and mobile interfaces, from the login to the dense screens where the real work happens.</p></li><li><h3 data-pr="lines">Design systems</h3><p data-pr="lines">Posters, album art and print pieces built with bold type and layered visuals.</p></li><li><h3 data-pr="lines">Prototypes</h3><p data-pr="lines">Clickable prototypes, often in code, so we judge the real thing, not a picture of it.</p></li></ul></div></section><section class="ab-sec f-grid sv-work" aria-labelledby="sv-work"><div class="ab-wide" data-pg="true"><header class="ab-head sv-work__head"><h2 class="f-title ab-title2" id="sv-work" data-pr="lines">Selected work</h2><div data-pr="el"><a class="f-showall" href="/work"><span class="f-roll"><span class="f-roll__in"><span class="f-roll__t">All work</span><span class="f-roll__t f-roll__t--b" aria-hidden="true">All work</span></span></span><span class="f-showall__arrs" aria-hidden="true"><svg class="f-showall__arr" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4"></path></svg><svg class="f-showall__arr f-showall__arr--b" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4"></path></svg></span></a></div></header><ul class="sv-cases" data-n="2"><li class="sv-case" data-case="" data-pr="el"><a class="sv-case__card" href="/work/ipg-interact"><span class="sv-case__media"><img alt="" loading="lazy" width="1280" height="720" decoding="async" data-nimg="1" class="sv-case__img" style="color:transparent" src="/media/projects/ipg-interact/thumbnail.webp?dpl=dpl_YgsZKvHvtCsxbyjvVEwYQpsg5LjE"/><video class="sv-case__vid" muted="" loop="" playsInline="" preload="none" disablePictureInPicture="" aria-hidden="true" tabindex="-1"></video></span><span class="sv-case__cap"><span class="sv-case__title">Porsche 3D</span><span class="sv-case__kind">3D study, 2025</span><span class="sv-case__go">Case study<svg class="sv-case__arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"></path></svg></span></span></a></li><li class="sv-case" data-case="" data-pr="el"><a class="sv-case__card" href="/work/mastercard-music"><span class="sv-case__media"><img alt="" loading="lazy" width="1280" height="720" decoding="async" data-nimg="1" class="sv-case__img" style="color:transparent" src="/media/projects/q-lounge/thumbnail.webp?dpl=dpl_YgsZKvHvtCsxbyjvVEwYQpsg5LjE"/><video class="sv-case__vid" muted="" loop="" playsInline="" preload="none" disablePictureInPicture="" aria-hidden="true" tabindex="-1"></video></span><span class="sv-case__cap"><span class="sv-case__title">Q Lounge</span><span class="sv-case__kind">Brand identity, 2025</span><span class="sv-case__go">Case study<svg class="sv-case__arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"></path></svg></span></span></a></li></ul></div></section><section class="ab-sec ab-steps-sec f-grid" aria-labelledby="sv-process"><div class="ab-wide" data-pg="true"><header class="ab-head"><h2 class="f-title ab-title2" id="sv-process" data-pr="lines">How I work</h2></header><ol class="ab-steps"><li class="ab-step"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><span class="ab-step__n" data-pr="el" aria-hidden="true">01</span><h3 class="ab-step__name" data-pr="lines">Listen</h3><p class="ab-step__text" data-pr="lines">A short call and a written brief: who the product is for, what done looks like, what must not break.</p></li><li class="ab-step"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><span class="ab-step__n" data-pr="el" aria-hidden="true">02</span><h3 class="ab-step__name" data-pr="lines">Prototype</h3><p class="ab-step__text" data-pr="lines">The key flows go into a clickable prototype early, often in code, so decisions rest on something you can use.</p></li><li class="ab-step"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><span class="ab-step__n" data-pr="el" aria-hidden="true">03</span><h3 class="ab-step__name" data-pr="lines">Build together</h3><p class="ab-step__text" data-pr="lines">Structured revisions with mockups and real-world tests.</p></li><li class="ab-step"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><span class="ab-step__n" data-pr="el" aria-hidden="true">04</span><h3 class="ab-step__name" data-pr="lines">Hand over</h3><p class="ab-step__text" data-pr="lines">Documentation, components and a team that can carry the product on without me.</p></li></ol></div></section><section class="ab-sec f-grid sv-faq" aria-labelledby="sv-faq"><div class="ab-wide" data-pg="true"><header class="ab-head"><h2 class="f-title ab-title2" id="sv-faq" data-pr="lines">Questions</h2></header><dl class="sv-faq__list"><div class="sv-faq__row"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><dt class="sv-faq__q" data-pr="lines">How long does a project take?</dt><dd class="sv-faq__a" data-pr="lines">It depends on the scope. After the brief I propose stages and dates, and we agree on them before the work starts. I reply to every brief within two working days.</dd></div><div class="sv-faq__row"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><dt class="sv-faq__q" data-pr="lines">How do you price a project?</dt><dd class="sv-faq__a" data-pr="lines">There is no price list. I quote after the brief, for the scope we agree on. A rough budget range in the form helps me suggest the right scope.</dd></div><div class="sv-faq__row"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><dt class="sv-faq__q" data-pr="lines">Can you work with our in-house developers?</dt><dd class="sv-faq__a" data-pr="lines">Yes, that is how I work best. I join reviews, hand over components and check the build in the browser. I prototype and build in React, Next.js or HTML myself, so the handover speaks your team&#x27;s language.</dd></div><div class="sv-faq__row"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><dt class="sv-faq__q" data-pr="lines">Which tools do you use?</dt><dd class="sv-faq__a" data-pr="lines">Figma for the design and the design system. React, Next.js and GSAP for prototypes in code. Cursor to work faster.</dd></div><div class="sv-faq__row"><span class="dc-rule" data-pr="rule" aria-hidden="true"></span><dt class="sv-faq__q" data-pr="lines">Do you work remotely?</dt><dd class="sv-faq__a" data-pr="lines">Yes. I&#x27;m based in Nairobi, Kenya, on Central European Time, and work with teams remotely: calls, shared Figma files and your channels.</dd></div></dl></div></section><nav class="ab-sec f-grid sv-more" aria-labelledby="sv-more"><div class="ab-wide" data-pg="true"><h2 class="sv-more__title" id="sv-more" data-pr="lines">More services</h2><ul class="ab-tools sv-more__list"><li data-pr="el"><a class="sv-more__link f-u" href="/services/web-design">Poster design</a></li><li data-pr="el"><a class="sv-more__link f-u" href="/services/design-for-agencies">3D and motion</a></li></ul></div></nav><section class="ab-cta" data-pg="true" aria-labelledby="sv-cta"><div class="f-grid"><h2 class="ab-cta__title" id="sv-cta" data-pr="lines">Have a product to design?</h2><div class="ab-cta__side"><p class="ab-cta__text" data-pr="lines">Stash your brief here. I usually reply within 24 hours.</p><div data-pr="el"><a class="ab-cta__go" data-fx-btn="true" href="/contact"><span class="ab-cta__fill" data-fx-host="true" aria-hidden="true"></span><span data-fx-t="true">Start a project</span><svg class="ab-cta__arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h17M14 6l6 6-6 6"></path></svg></a></div></div></div></section></main><footer class="foot" id="foot"><div class="f-foot__col f-foot__contact"><p class="f-foot__label">Contact</p><nav class="f-foot__services" aria-label="Services"><p class="f-foot__label" aria-hidden="true">Services</p><ul class="f-foot__list"><li><a class="f-foot__link f-u" href="/services/saas-product-design">Brand identity</a></li><li><a class="f-foot__link f-u" href="/services/web-design">Poster design</a></li><li><a class="f-foot__link f-u" href="/services/design-for-agencies">3D and motion</a></li><li><a class="f-foot__link f-u" href="/services/web-design">Web development</a></li><li><a class="f-foot__link f-u" href="/services/design-for-agencies">Graphic design</a></li></ul></nav></div><nav class="f-foot__col f-foot__social" aria-label="Social"><p class="f-foot__label" aria-hidden="true">Social</p><ul class="f-foot__list"><li><a class="f-foot__link f-u" href="https://instagram.com/ckay.png" target="_blank" rel="noopener">Instagram<svg class="f-foot__arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"></path></svg></a></li><li><a class="f-foot__link f-u" href="https://github.com/kamara-png" target="_blank" rel="noopener">GitHub<svg class="f-foot__arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"></path></svg></a></li><li><a class="f-foot__link f-u" href="https://www.linkedin.com/in/calvin-kamara-1b20b440b" target="_blank" rel="noopener">LinkedIn<svg class="f-foot__arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M6 4.5h5.5V10"></path></svg></a></li></ul></nav><div class="f-now" role="group" aria-label="Listening"><p class="f-now__label f-foot__label">Music</p><div class="f-now__list"><a class="f-now__item f-now__music" href="https://open.spotify.com/user/Kamarack" target="_blank" rel="noopener"><span class="f-cover f-cover--album" aria-hidden="true"><span class="f-rec__gen"><span class="f-rec__gen-t">Stasher Sessions</span><span class="f-rec__gen-a">ckay.png</span></span></span><span class="f-now__meta"><span class="f-now__kicker"><span class="f-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Now playing</span><span class="f-now__title f-u">Stasher Sessions</span><span class="f-now__by">ckay.png</span></span></a><div class="f-now__item f-now__reading"><a class="f-cover f-cover--book" href="https://www.bispublishers.com/the-umami-strategy.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="f-book__gen"><span class="f-book__gen-a">Calvin Kamara</span><span class="f-book__gen-t">Brand Kit</span></span></a><span class="f-now__meta"><span class="f-now__kicker">Reading</span><a class="f-now__title f-now__link f-u" href="https://www.bispublishers.com/the-umami-strategy.html" target="_blank" rel="noopener">Brand Kit</a><span class="f-now__by">Calvin Kamara</span></span></div></div></div><span class="f-foot__rule" aria-hidden="true"></span><div class="foot__row"><img alt="stasher studio" loading="lazy" width="110" height="50" decoding="async" data-nimg="1" class="foot__logo" style="color:transparent" src="/brand/logo-footer.svg?dpl=dpl_YgsZKvHvtCsxbyjvVEwYQpsg5LjE"/><p class="f-foot__copy">© <!-- -->2026<!-- --> <!-- -->stasher studio</p><nav class="f-foot__legal" aria-label="Legal"><ul><li><a class="f-u" href="/privacy">Privacy</a></li><li><a class="f-u" href="/cookies">Cookies</a></li><li><a class="f-u" href="/terms">Terms</a></li><li class="f-foot__settings"><button type="button" class="f-u f-foot__btn">Cookie settings</button></li></ul></nav></div></footer></div><!--$--><!--/$--><div class="f-ld" hidden="" aria-hidden="true" role="progressbar" aria-label="Loading the page" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="f-ld__sheet" aria-hidden="true"></div><div class="f-ld__panel"><div class="f-ld__content" aria-hidden="true"><div class="f-ld__mark"><span class="f-ld__mark-ghost"></span><span class="f-ld__mark-fill"></span></div><div class="f-ld__labels"><span class="f-ld__label">Loading</span><span class="f-ld__label">Ready</span></div><p class="f-ld__count"><span class="f-ld__num">000</span><span class="f-ld__pct">%</span></p></div><div class="f-ld__bar" aria-hidden="true"></div></div></div><canvas class="gl" aria-hidden="true" hidden=""></canvas><div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Project" aria-hidden="true" hidden=""><div class="ov-bar"><a class="ov-close" href="/" data-close="true">Close</a></div><button class="ov-pull" type="button" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="ov-pull__track" cx="12" cy="12" r="10"></circle><circle class="ov-pull__ring" cx="12" cy="12" r="10"></circle></svg><span class="ov-pull__label"></span></button><div class="ov-scroll" data-lenis-prevent="true"><div class="ov-content"></div></div></div><p class="sr-only" role="status"></p><script id="_R_">(globalThis["TURBOPACK"] || (globalThis["TURBOPACK"] = [])).push({"otherChunks":["static/immutable/chunks/3tidgnwlzex5x.js","static/immutable/chunks/2hwt0uadsjhl6.js","static/immutable/chunks/3atelpd2vuzg5.js","static/immutable/chunks/2t9dton0q06z_.js"],"runtimeModuleIds":[94553]});</script><script src="/assets/static/immutable/chunks/3tidgnwlzex5x.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:\"/assets/static/immutable/chunks/04j6dipjwpqns.js\"\n3:I[39756,[\"$2\"],\"default\"]\n4:I[37457,[\"$2\"],\"default\"]\n7:\"/assets/static/immutable/chunks/1hptqj8l2wsap.js\"\n8:\"/assets/static/immutable/chunks/41_i_desp1-gk.js\"\n9:\"/assets/static/immutable/chunks/31uw49meuagc6.js\"\na:\"/assets/static/immutable/chunks/0cz1y8-klkqvp.js\"\nb:\"/assets/static/immutable/chunks/2gf4xev340f6x.js\"\nc:\"/assets/static/immutable/chunks/2txsefu3t8sxk.js?v=stash3\"\nd:I[39394,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\ne:\"/assets/static/immutable/chunks/1_flc_czd-sek.js\"\nf:I[54810,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$e\"],\"default\"]\n20:\"ViewportBoundary\"\n21:I[97367,[\"$2\"],\"$20\"]\n23:\"MetadataBoundary\"\n24:I[97367,[\"$2\"],\"$23\"]\n25:\"$Sreact.suspense\"\n27:\"/assets/static/immutable/chunks/0xg-aqt4tj4g-.js\"\n28:I[53348,[\"$27\",\"$9\",\"$8\",\"$c\"],\"default\"]\n:HL[\"/assets/static/immutable/chunks/27hyzowjsbws7.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/0mr_i9idf7iyr.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/2iha1_htk5r6k.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/2n9topy226t4f.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/1vdcdfv7_5yv3.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/1b967k6eh-6_s.css\",\"style\"]\n:HL[\"/assets/static/immutable/media/797e433ab948586e-s.p.1v5bejj26fx9h.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/assets/static/immutable/chunks/355ijy2bi08gv.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/3ds8r7-xy7tf_.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/2urdhtrov04tv.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/001bx5h85a33_.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/1f_bqb8f40egz.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/0ghe93groec3y.css\",\"style\"]\n:HL[\"https://use.typekit.net/omg1nuw.css\",\"style\"]\n:HL[\"/assets/static/immutable/chunks/24d8telmd2akd.css\",\"style\"]\n5:X\n1e:[[\"children\",{\"s\":\"__PAGE__\",\"h\":512,\"d\":{\"r\":\"$L1f\",\"p\":false,\"v\":null}}]]\n1c:[[\"children\",{\"s\":{\"n\":\"slug\",\"t\":\"d\",\"k\":\"saas-product-design\",\"s\":[]},\"h\":66048,\"d\":{\"r\":\"$L1d\",\"p\":false,\"v\":\"$5\"},\"c\":\"$Q1e\"}]]\n1a:[[\"children\",{\"s\":\"services\",\"h\":131584,\"d\":{\"r\":\"$L1b\",\"p\":false,\"v\":\"$5\"},\"c\":\"$Q1c\"}]]\n"])</script><script>self.__next_f.push([1,"6:[[\"children\",{\"s\":\"(site)\",\"h\":131600,\"d\":{\"r\":[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/27hyzowjsbws7.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/0mr_i9idf7iyr.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/2iha1_htk5r6k.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"3\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/2n9topy226t4f.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"4\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/1vdcdfv7_5yv3.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"5\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/1b967k6eh-6_s.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/assets/static/immutable/chunks/1hptqj8l2wsap.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-1\",{\"src\":\"/assets/static/immutable/chunks/41_i_desp1-gk.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-2\",{\"src\":\"/assets/static/immutable/chunks/31uw49meuagc6.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-3\",{\"src\":\"/assets/static/immutable/chunks/0cz1y8-klkqvp.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-4\",{\"src\":\"/assets/static/immutable/chunks/2gf4xev340f6x.js\",\"async\":true,\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-5\",{\"src\":\"/assets/static/immutable/chunks/2txsefu3t8sxk.js?v=stash3\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"className\":\"pmQ8ua_variable\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"(function(){var h=document.documentElement;h.classList.add('motion');try{history.scrollRestoration='manual'}catch(e){}if(new RegExp(\\\"^\\\\\\\\/(?:work\\\\\\\\/[^/]+\\\\\\\\/?)?$\\\").test(location.pathname))h.classList.add('f-loading');setTimeout(function(){if(!h.classList.contains('motion-live')){h.classList.remove('motion','f-loading');h.classList.add('motion-timeout')}},10000)})()\"}}],[\"$\",\"link\",null,{\"rel\":\"preconnect\",\"href\":\"https://use.typekit.net\",\"crossOrigin\":\"\"}],[\"$\",\"link\",null,{\"rel\":\"preconnect\",\"href\":\"https://p.typekit.net\"}],[\"$\",\"link\",null,{\"rel\":\"dns-prefetch\",\"href\":\"https://use.typekit.net\"}],[\"$\",\"link\",null,{\"rel\":\"dns-prefetch\",\"href\":\"https://p.typekit.net\"}],[\"$\",\"link\",null,{\"rel\":\"stylesheet\",\"href\":\"https://use.typekit.net/omg1nuw.css\"}]]}],[\"$\",\"body\",null,{\"children\":[[\"$\",\"a\",null,{\"className\":\"skip sr-only\",\"href\":\"#main\",\"children\":\"Skip to content\"}],[[\"$\",\"$Ld\",null,{\"children\":[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$f\",\"errorStyles\":[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/2urdhtrov04tv.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/24d8telmd2akd.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],\"errorScripts\":[\"$L10\"],\"template\":\"$L11\",\"templateStyles\":[],\"templateScripts\":[\"$L12\"],\"notFound\":\"$L13\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}],\"$L14\",\"$L15\",\"$L16\",\"$L17\",\"$L18\"],\"$L19\"]}]]}]]}],\"p\":false,\"v\":null},\"c\":\"$Q1a\"}]]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"c\":[\"\",\"services\",\"saas-product-design\"],\"q\":\"\",\"i\":false,\"t\":{\"t\":{\"s\":\"\",\"h\":131600,\"d\":{\"r\":[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],\"p\":false,\"v\":\"$5\"},\"c\":\"$Q6\"},\"h\":{\"r\":[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$L21\",null,{\"children\":\"$L22\"}],[\"$\",\"$L24\",null,{\"children\":[[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$25\",null,{\"name\":\"Next.Metadata\",\"children\":\"$L26\"}]}],null]}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}],\"p\":false,\"v\":null}},\"m\":\"$undefined\",\"G\":[\"$28\",[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/2urdhtrov04tv.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/24d8telmd2akd.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/1b967k6eh-6_s.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]]],\"S\":true,\"r\":\"$undefined\",\"s\":\"$undefined\",\"a\":\"$undefined\",\"l\":\"$undefined\",\"p\":\"$undefined\",\"d\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"29:\"/assets/static/immutable/chunks/00k_0jyjcngjq.js\"\n2a:I[5134,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$29\"],\"default\"]\n2b:I[69634,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\n2c:I[70616,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\n2d:I[45010,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\n2e:I[80192,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\n2f:I[8614,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\n31:I[97367,[\"$2\"],\"OutletBoundary\"]\n5:C\n10:[\"$\",\"script\",\"script-0\",{\"src\":\"/assets/static/immutable/chunks/1_flc_czd-sek.js\",\"async\":true,\"nonce\":\"$undefined\"}]\n11:[\"$\",\"$L2a\",null,{\"children\":[\"$\",\"$L4\",null,{}]}]\n12:[\"$\",\"script\",\"script-0\",{\"src\":\"/assets/static/immutable/chunks/00k_0jyjcngjq.js\",\"async\":true,\"nonce\":\"$undefined\"}]\n13:[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":\"$0:t:t:d:r:props:children:1:props:notFound:0:1:props:style\",\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":\"$0:t:t:d:r:props:children:1:props:notFound:0:1:props:children:props:children:1:props:style\",\"children\":404}],[\"$\",\"div\",null,{\"style\":\"$0:t:t:d:r:props:children:1:props:notFound:0:1:props:children:props:children:2:props:style\",\"children\":[\"$\",\"h2\",null,{\"style\":\"$0:t:t:d:r:props:children:1:props:notFound:0:1:props:children:props:children:2:props:children:props:style\",\"children\":\"This page could not be found.\"}]}]]}]}]],[]]\n14:[\"$\",\"$L2b\",null,{}]\n15:[\"$\",\"$L2c\",null,{}]\n16:[\"$\",\"$L2d\",null,{}]\n18:[\"$\",\"$L2e\",null,{}]\n19:[\"$\",\"$L2f\",null,{\"analytics\":true,\"gaId\":\"G-JSX9E0XTGK\"}]\n1b:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]\n1d:[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L3\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L4\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]\n1f:[\"$\",\"$1\",\"c\",{\"children\":[\"$L30\",[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/355ijy2bi08gv.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/3ds8r7-xy7tf_.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/2urdhtrov04tv.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"3\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/001bx5h85a33_.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"4\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/1f_bqb8f40egz.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"5\",{\"rel\":\"stylesheet\",\"href\":\"/assets/static/immutable/chunks/0ghe93groec3y.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"script\",\"script-0\",{\"src\":\"/assets/static/immutable/chunks/1ckinmq8enlx6.js\",\"async\":true,\"nonce\":\"$undefined\"}]],[\"$\",\"$L31\",null,{\"children\":[\"$\",\"$25\",null,{\"name\":\"Next.MetadataOutlet\",\"children\":\"$@32\"}]}]]}]\n"])</script><script>self.__next_f.push([1,"33:I[33586,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\"],\"default\"]\n17:[\"$\",\"$L33\",null,{\"base\":\"/media/video\"}]\n"])</script><script>self.__next_f.push([1,"35:\"/assets/static/immutable/chunks/1ckinmq8enlx6.js\"\n36:I[8089,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"SiteLink\"]\n"])</script><script>self.__next_f.push([1,"30:[\"$\",\"div\",null,{\"className\":\"ab-page sv-page\",\"children\":[\"$L34\",[\"$\",\"main\",null,{\"className\":\"ab sv\",\"id\":\"main\",\"tabIndex\":-1,\"children\":[[\"$\",\"section\",null,{\"className\":\"sv-hero f-grid\",\"aria-labelledby\":\"sv-title\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"sv-title\",\"id\":\"sv-title\",\"children\":[\"SaaS Product\",[\"$\",\"em\",null,{\"children\":\" Design\"}]]}],[\"$\",\"div\",null,{\"className\":\"sv-hero__side\",\"data-pg\":true,\"children\":[[\"$\",\"p\",null,{\"className\":\"sv-lead\",\"data-pr\":\"lines\",\"children\":\"I design SaaS products and apps from the first flow to the last edge case: research, UX, the interface and a prototype that proves it. Often in code, always with the people who will build it.\"}],[\"$\",\"div\",null,{\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-showall\",\"href\":\"/contact\",\"children\":[[\"$\",\"span\",null,{\"className\":\"f-roll\",\"children\":[\"$\",\"span\",null,{\"className\":\"f-roll__in\",\"children\":[[\"$\",\"span\",null,{\"className\":\"f-roll__t\",\"children\":\"Start a project\"}],[\"$\",\"span\",null,{\"className\":\"f-roll__t f-roll__t--b\",\"aria-hidden\":\"true\",\"children\":\"Start a project\"}]]}]}],[\"$\",\"span\",null,{\"className\":\"f-showall__arrs\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"f-showall__arr\",\"viewBox\":\"0 0 16 16\",\"children\":[\"$\",\"path\",null,{\"d\":\"M2 8h11M9 4l4 4-4 4\"}]}],[\"$\",\"svg\",null,{\"className\":\"f-showall__arr f-showall__arr--b\",\"viewBox\":\"0 0 16 16\",\"children\":[\"$\",\"path\",null,{\"d\":\"M2 8h11M9 4l4 4-4 4\"}]}]]}]]}]}]]}]]}],[\"$\",\"section\",null,{\"className\":\"ab-sec ab-sv\",\"aria-labelledby\":\"sv-included\",\"children\":[\"$\",\"div\",null,{\"className\":\"f-grid\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"ab-sv__title\",\"id\":\"sv-included\",\"children\":\"What's included\"}],[\"$\",\"p\",null,{\"className\":\"ab-sv__run\",\"data-pg\":true,\"data-pr\":\"el\",\"children\":[[\"$\",\"$1\",\"Research and flows\",{\"children\":[false,[\"$\",\"span\",null,{\"className\":\"ab-sv__n\",\"children\":\"Research and flows\"}]]}],[\"$\",\"$1\",\"Apps and dashboards\",{\"children\":[[\"$\",\"i\",null,{\"className\":\"ab-sv__sep\",\"aria-hidden\":\"true\",\"children\":\" / \"}],[\"$\",\"span\",null,{\"className\":\"ab-sv__n\",\"children\":\"Apps and dashboards\"}]]}],[\"$\",\"$1\",\"Design systems\",{\"children\":[[\"$\",\"i\",null,{\"className\":\"ab-sv__sep\",\"aria-hidden\":\"true\",\"children\":\" / \"}],[\"$\",\"span\",null,{\"className\":\"ab-sv__n\",\"children\":\"Design systems\"}]]}],[\"$\",\"$1\",\"Prototypes\",{\"children\":[[\"$\",\"i\",null,{\"className\":\"ab-sv__sep\",\"aria-hidden\":\"true\",\"children\":\" / \"}],[\"$\",\"span\",null,{\"className\":\"ab-sv__n\",\"children\":\"Prototypes\"}]]}]]}],[\"$\",\"ul\",null,{\"className\":\"ab-sv__texts\",\"data-pg\":true,\"children\":[[\"$\",\"li\",\"Research and flows\",{\"children\":[[\"$\",\"h3\",null,{\"data-pr\":\"lines\",\"children\":\"Research and flows\"}],[\"$\",\"p\",null,{\"data-pr\":\"lines\",\"children\":\"Who uses the product, what they need to get done and where they get stuck. The flows are mapped before the first screen.\"}]]}],[\"$\",\"li\",\"Apps and dashboards\",{\"children\":[[\"$\",\"h3\",null,{\"data-pr\":\"lines\",\"children\":\"Apps and dashboards\"}],[\"$\",\"p\",null,{\"data-pr\":\"lines\",\"children\":\"Web and mobile interfaces, from the login to the dense screens where the real work happens.\"}]]}],[\"$\",\"li\",\"Design systems\",{\"children\":[[\"$\",\"h3\",null,{\"data-pr\":\"lines\",\"children\":\"Design systems\"}],[\"$\",\"p\",null,{\"data-pr\":\"lines\",\"children\":\"Posters, album art and print pieces built with bold type and layered visuals.\"}]]}],[\"$\",\"li\",\"Prototypes\",{\"children\":[[\"$\",\"h3\",null,{\"data-pr\":\"lines\",\"children\":\"Prototypes\"}],[\"$\",\"p\",null,{\"data-pr\":\"lines\",\"children\":\"Clickable prototypes, often in code, so we judge the real thing, not a picture of it.\"}]]}]]}]]}]}],[\"$\",\"section\",null,{\"className\":\"ab-sec f-grid sv-work\",\"aria-labelledby\":\"sv-work\",\"children\":[\"$\",\"div\",null,{\"className\":\"ab-wide\",\"data-pg\":true,\"children\":[[\"$\",\"header\",null,{\"className\":\"ab-head sv-work__head\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"f-title ab-title2\",\"id\":\"sv-work\",\"data-pr\":\"lines\",\"children\":\"Selected work\"}],[\"$\",\"div\",null,{\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-showall\",\"href\":\"/work\",\"children\":[[\"$\",\"span\",null,{\"className\":\"f-roll\",\"children\":[\"$\",\"span\",null,{\"className\":\"f-roll__in\",\"children\":[[\"$\",\"span\",null,{\"className\":\"f-roll__t\",\"children\":\"All work\"}],[\"$\",\"span\",null,{\"className\":\"f-roll__t f-roll__t--b\",\"aria-hidden\":\"true\",\"children\":\"All work\"}]]}]}],[\"$\",\"span\",null,{\"className\":\"f-showall__arrs\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"svg\",null,{\"className\":\"f-showall__arr\",\"viewBox\":\"0 0 16 16\",\"children\":[\"$\",\"path\",null,{\"d\":\"M2 8h11M9 4l4 4-4 4\"}]}],[\"$\",\"svg\",null,{\"className\":\"f-showall__arr f-showall__arr--b\",\"viewBox\":\"0 0 16 16\",\"children\":[\"$\",\"path\",null,{\"d\":\"M2 8h11M9 4l4 4-4 4\"}]}]]}]]}]}]]}],\"$L37\"]}]}],\"$L38\",\"$L39\",\"$L3a\",\"$L3b\"]}],\"$L3c\",\"$L3d\"]}]\n"])</script><script>self.__next_f.push([1,"3e:I[5500,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"Image\"]\n3f:I[16989,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"default\"]\n40:I[8521,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"default\"]\n"])</script><script>self.__next_f.push([1,"37:[\"$\",\"ul\",null,{\"className\":\"sv-cases\",\"data-n\":2,\"children\":[[\"$\",\"li\",\"ipg-interact\",{\"className\":\"sv-case\",\"data-case\":\"\",\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"sv-case__card\",\"href\":\"/work/ipg-interact\",\"children\":[[\"$\",\"span\",null,{\"className\":\"sv-case__media\",\"children\":[[\"$\",\"$L3e\",null,{\"className\":\"sv-case__img\",\"src\":\"/media/projects/ipg-interact/thumbnail.webp\",\"width\":1280,\"height\":720,\"sizes\":\"(max-width: 809.98px) 100vw, 50vw\",\"alt\":\"\"}],[\"$\",\"$L3f\",null,{\"base\":\"/media/video\",\"stem\":\"ipg-interact.2a67d51b\"}]]}],[\"$\",\"span\",null,{\"className\":\"sv-case__cap\",\"children\":[[\"$\",\"span\",null,{\"className\":\"sv-case__title\",\"children\":\"Porsche 3D\"}],[\"$\",\"span\",null,{\"className\":\"sv-case__kind\",\"children\":\"3D study, 2025\"}],[\"$\",\"span\",null,{\"className\":\"sv-case__go\",\"children\":[\"Case study\",[\"$\",\"svg\",null,{\"className\":\"sv-case__arr\",\"viewBox\":\"0 0 16 16\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M2 8h11M9 4l4 4-4 4\"}]}]]}]]}]]}]}],[\"$\",\"li\",\"mastercard-music\",{\"className\":\"sv-case\",\"data-case\":\"\",\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"sv-case__card\",\"href\":\"/work/mastercard-music\",\"children\":[[\"$\",\"span\",null,{\"className\":\"sv-case__media\",\"children\":[[\"$\",\"$L3e\",null,{\"className\":\"sv-case__img\",\"src\":\"/media/projects/q-lounge/thumbnail.webp\",\"width\":1280,\"height\":720,\"sizes\":\"(max-width: 809.98px) 100vw, 50vw\",\"alt\":\"\"}],[\"$\",\"$L3f\",null,{\"base\":\"/media/video\",\"stem\":\"q-lounge.74b4874e\"}]]}],[\"$\",\"span\",null,{\"className\":\"sv-case__cap\",\"children\":[[\"$\",\"span\",null,{\"className\":\"sv-case__title\",\"children\":\"Q Lounge\"}],[\"$\",\"span\",null,{\"className\":\"sv-case__kind\",\"children\":\"Brand identity, 2025\"}],[\"$\",\"span\",null,{\"className\":\"sv-case__go\",\"children\":[\"Case study\",[\"$\",\"svg\",null,{\"className\":\"sv-case__arr\",\"viewBox\":\"0 0 16 16\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M2 8h11M9 4l4 4-4 4\"}]}]]}]]}]]}]}]]}]\n"])</script><script>self.__next_f.push([1,"38:[\"$\",\"section\",null,{\"className\":\"ab-sec ab-steps-sec f-grid\",\"aria-labelledby\":\"sv-process\",\"children\":[\"$\",\"div\",null,{\"className\":\"ab-wide\",\"data-pg\":true,\"children\":[[\"$\",\"header\",null,{\"className\":\"ab-head\",\"children\":[\"$\",\"h2\",null,{\"className\":\"f-title ab-title2\",\"id\":\"sv-process\",\"data-pr\":\"lines\",\"children\":\"How I work\"}]}],[\"$\",\"ol\",null,{\"className\":\"ab-steps\",\"children\":[[\"$\",\"li\",\"Listen\",{\"className\":\"ab-step\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"span\",null,{\"className\":\"ab-step__n\",\"data-pr\":\"el\",\"aria-hidden\":\"true\",\"children\":\"01\"}],[\"$\",\"h3\",null,{\"className\":\"ab-step__name\",\"data-pr\":\"lines\",\"children\":\"Listen\"}],[\"$\",\"p\",null,{\"className\":\"ab-step__text\",\"data-pr\":\"lines\",\"children\":\"A short call and a written brief: who the product is for, what done looks like, what must not break.\"}]]}],[\"$\",\"li\",\"Prototype\",{\"className\":\"ab-step\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"span\",null,{\"className\":\"ab-step__n\",\"data-pr\":\"el\",\"aria-hidden\":\"true\",\"children\":\"02\"}],[\"$\",\"h3\",null,{\"className\":\"ab-step__name\",\"data-pr\":\"lines\",\"children\":\"Prototype\"}],[\"$\",\"p\",null,{\"className\":\"ab-step__text\",\"data-pr\":\"lines\",\"children\":\"The key flows go into a clickable prototype early, often in code, so decisions rest on something you can use.\"}]]}],[\"$\",\"li\",\"Build together\",{\"className\":\"ab-step\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"span\",null,{\"className\":\"ab-step__n\",\"data-pr\":\"el\",\"aria-hidden\":\"true\",\"children\":\"03\"}],[\"$\",\"h3\",null,{\"className\":\"ab-step__name\",\"data-pr\":\"lines\",\"children\":\"Build together\"}],[\"$\",\"p\",null,{\"className\":\"ab-step__text\",\"data-pr\":\"lines\",\"children\":\"Structured revisions with mockups and real-world tests.\"}]]}],[\"$\",\"li\",\"Hand over\",{\"className\":\"ab-step\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"span\",null,{\"className\":\"ab-step__n\",\"data-pr\":\"el\",\"aria-hidden\":\"true\",\"children\":\"04\"}],[\"$\",\"h3\",null,{\"className\":\"ab-step__name\",\"data-pr\":\"lines\",\"children\":\"Hand over\"}],[\"$\",\"p\",null,{\"className\":\"ab-step__text\",\"data-pr\":\"lines\",\"children\":\"Documentation, components and a team that can carry the product on without me.\"}]]}]]}]]}]}]\n"])</script><script>self.__next_f.push([1,"39:[\"$\",\"section\",null,{\"className\":\"ab-sec f-grid sv-faq\",\"aria-labelledby\":\"sv-faq\",\"children\":[\"$\",\"div\",null,{\"className\":\"ab-wide\",\"data-pg\":true,\"children\":[[\"$\",\"header\",null,{\"className\":\"ab-head\",\"children\":[\"$\",\"h2\",null,{\"className\":\"f-title ab-title2\",\"id\":\"sv-faq\",\"data-pr\":\"lines\",\"children\":\"Questions\"}]}],[\"$\",\"dl\",null,{\"className\":\"sv-faq__list\",\"children\":[[\"$\",\"div\",\"How long does a project take?\",{\"className\":\"sv-faq__row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"dt\",null,{\"className\":\"sv-faq__q\",\"data-pr\":\"lines\",\"children\":\"How long does a project take?\"}],[\"$\",\"dd\",null,{\"className\":\"sv-faq__a\",\"data-pr\":\"lines\",\"children\":\"It depends on the scope. After the brief I propose stages and dates, and we agree on them before the work starts. I reply to every brief within two working days.\"}]]}],[\"$\",\"div\",\"How do you price a project?\",{\"className\":\"sv-faq__row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"dt\",null,{\"className\":\"sv-faq__q\",\"data-pr\":\"lines\",\"children\":\"How do you price a project?\"}],[\"$\",\"dd\",null,{\"className\":\"sv-faq__a\",\"data-pr\":\"lines\",\"children\":\"There is no price list. I quote after the brief, for the scope we agree on. A rough budget range in the form helps me suggest the right scope.\"}]]}],[\"$\",\"div\",\"Can you work with our in-house developers?\",{\"className\":\"sv-faq__row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"dt\",null,{\"className\":\"sv-faq__q\",\"data-pr\":\"lines\",\"children\":\"Can you work with our in-house developers?\"}],[\"$\",\"dd\",null,{\"className\":\"sv-faq__a\",\"data-pr\":\"lines\",\"children\":\"Yes, that is how I work best. I join reviews, hand over components and check the build in the browser. I prototype and build in React, Next.js or HTML myself, so the handover speaks your team's language.\"}]]}],[\"$\",\"div\",\"Which tools do you use?\",{\"className\":\"sv-faq__row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"dt\",null,{\"className\":\"sv-faq__q\",\"data-pr\":\"lines\",\"children\":\"Which tools do you use?\"}],[\"$\",\"dd\",null,{\"className\":\"sv-faq__a\",\"data-pr\":\"lines\",\"children\":\"Figma for the design and the design system. React, Next.js and GSAP for prototypes in code. Cursor to work faster.\"}]]}],[\"$\",\"div\",\"Do you work remotely?\",{\"className\":\"sv-faq__row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"dc-rule\",\"data-pr\":\"rule\",\"aria-hidden\":\"true\"}],[\"$\",\"dt\",null,{\"className\":\"sv-faq__q\",\"data-pr\":\"lines\",\"children\":\"Do you work remotely?\"}],[\"$\",\"dd\",null,{\"className\":\"sv-faq__a\",\"data-pr\":\"lines\",\"children\":\"Yes. I'm based in Nairobi, Kenya, on Central European Time, and work with teams remotely: calls, shared Figma files and your channels.\"}]]}]]}]]}]}]\n"])</script><script>self.__next_f.push([1,"3a:[\"$\",\"nav\",null,{\"className\":\"ab-sec f-grid sv-more\",\"aria-labelledby\":\"sv-more\",\"children\":[\"$\",\"div\",null,{\"className\":\"ab-wide\",\"data-pg\":true,\"children\":[[\"$\",\"h2\",null,{\"className\":\"sv-more__title\",\"id\":\"sv-more\",\"data-pr\":\"lines\",\"children\":\"More services\"}],[\"$\",\"ul\",null,{\"className\":\"ab-tools sv-more__list\",\"children\":[[\"$\",\"li\",\"web-design\",{\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"sv-more__link f-u\",\"href\":\"/services/web-design\",\"children\":\"Poster design\"}]}],[\"$\",\"li\",\"design-for-agencies\",{\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"sv-more__link f-u\",\"href\":\"/services/design-for-agencies\",\"children\":\"3D and motion\"}]}]]}]]}]}]\n3b:[\"$\",\"section\",null,{\"className\":\"ab-cta\",\"data-pg\":true,\"aria-labelledby\":\"sv-cta\",\"children\":[\"$\",\"div\",null,{\"className\":\"f-grid\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"ab-cta__title\",\"id\":\"sv-cta\",\"data-pr\":\"lines\",\"children\":\"Have a product to design?\"}],[\"$\",\"div\",null,{\"className\":\"ab-cta__side\",\"children\":[[\"$\",\"p\",null,{\"className\":\"ab-cta__text\",\"data-pr\":\"lines\",\"children\":\"Stash your brief here. I usually reply within 24 hours.\"}],[\"$\",\"div\",null,{\"data-pr\":\"el\",\"children\":[\"$\",\"$L36\",null,{\"className\":\"ab-cta__go\",\"href\":\"/contact\",\"data-fx-btn\":true,\"children\":[[\"$\",\"span\",null,{\"className\":\"ab-cta__fill\",\"data-fx-host\":true,\"aria-hidden\":\"true\"}],[\"$\",\"span\",null,{\"data-fx-t\":true,\"children\":\"Start a project\"}],[\"$\",\"svg\",null,{\"className\":\"ab-cta__arr\",\"viewBox\":\"0 0 24 24\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M3 12h17M14 6l6 6-6 6\"}]}]]}]}]]}]]}]}]\n3d:[\"$\",\"$L40\",null,{}]\n"])</script><script>self.__next_f.push([1,"41:I[7981,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"default\"]\n42:I[8321,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"default\"]\n43:I[11269,[\"$7\",\"$8\",\"$9\",\"$a\",\"$b\",\"$c\",\"$35\"],\"default\"]\n"])</script><script>self.__next_f.push([1,"3c:[\"$\",\"footer\",null,{\"className\":\"foot\",\"id\":\"foot\",\"children\":[[\"$\",\"div\",null,{\"className\":\"f-foot__col f-foot__contact\",\"children\":[[\"$\",\"p\",null,{\"className\":\"f-foot__label\",\"children\":\"Contact\"}],[\"$\",\"nav\",null,{\"className\":\"f-foot__services\",\"aria-label\":\"Services\",\"children\":[[\"$\",\"p\",null,{\"className\":\"f-foot__label\",\"aria-hidden\":\"true\",\"children\":\"Services\"}],[\"$\",\"ul\",null,{\"className\":\"f-foot__list\",\"children\":[[\"$\",\"li\",\"saas-product-design\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"/services/saas-product-design\",\"children\":\"Brand identity\"}]}],[\"$\",\"li\",\"web-design\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"/services/web-design\",\"children\":\"Poster design\"}]}],[\"$\",\"li\",\"design-for-agencies\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"/services/design-for-agencies\",\"children\":\"3D and motion\"}]}],[\"$\",\"li\",\"web-development\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"/services/web-design\",\"children\":\"Web development\"}]}],[\"$\",\"li\",\"graphic-design\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"/services/design-for-agencies\",\"children\":\"Graphic design\"}]}]]}]]}]]}],[\"$\",\"nav\",null,{\"className\":\"f-foot__col f-foot__social\",\"aria-label\":\"Social\",\"children\":[[\"$\",\"p\",null,{\"className\":\"f-foot__label\",\"aria-hidden\":\"true\",\"children\":\"Social\"}],[\"$\",\"ul\",null,{\"className\":\"f-foot__list\",\"children\":[[\"$\",\"li\",\"Instagram\",{\"children\":[\"$\",\"a\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"https://instagram.com/ckay.png\",\"target\":\"_blank\",\"rel\":\"noopener\",\"children\":[\"Instagram\",[\"$\",\"svg\",null,{\"className\":\"f-foot__arr\",\"viewBox\":\"0 0 16 16\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M4.5 11.5l7-7M6 4.5h5.5V10\"}]}]]}]}],[\"$\",\"li\",\"GitHub\",{\"children\":[\"$\",\"a\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"https://github.com/kamara-png\",\"target\":\"_blank\",\"rel\":\"noopener\",\"children\":[\"GitHub\",[\"$\",\"svg\",null,{\"className\":\"f-foot__arr\",\"viewBox\":\"0 0 16 16\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M4.5 11.5l7-7M6 4.5h5.5V10\"}]}]]}]}],[\"$\",\"li\",\"LinkedIn\",{\"children\":[\"$\",\"a\",null,{\"className\":\"f-foot__link f-u\",\"href\":\"https://www.linkedin.com/in/calvin-kamara-1b20b440b\",\"target\":\"_blank\",\"rel\":\"noopener\",\"children\":[\"LinkedIn\",[\"$\",\"svg\",null,{\"className\":\"f-foot__arr\",\"viewBox\":\"0 0 16 16\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M4.5 11.5l7-7M6 4.5h5.5V10\"}]}]]}]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"f-now\",\"role\":\"group\",\"aria-label\":\"Listening\",\"children\":[[\"$\",\"p\",null,{\"className\":\"f-now__label f-foot__label\",\"children\":\"Music\"}],[\"$\",\"div\",null,{\"className\":\"f-now__list\",\"children\":[[\"$\",\"$L41\",null,{\"music\":{\"title\":\"Stasher Sessions\",\"artist\":\"ckay.png\",\"cover\":null,\"url\":\"https://open.spotify.com/user/Kamarack\",\"placeholder\":false}}],[\"$\",\"div\",null,{\"className\":\"f-now__item f-now__reading\",\"children\":[[\"$\",\"a\",null,{\"className\":\"f-cover f-cover--book\",\"href\":\"https://www.bispublishers.com/the-umami-strategy.html\",\"target\":\"_blank\",\"rel\":\"noopener\",\"tabIndex\":-1,\"aria-hidden\":\"true\",\"children\":[\"$\",\"span\",null,{\"className\":\"f-book__gen\",\"children\":[[\"$\",\"span\",null,{\"className\":\"f-book__gen-a\",\"children\":\"Calvin Kamara\"}],[\"$\",\"span\",null,{\"className\":\"f-book__gen-t\",\"children\":\"Brand Kit\"}]]}]}],[\"$\",\"span\",null,{\"className\":\"f-now__meta\",\"children\":[[\"$\",\"span\",null,{\"className\":\"f-now__kicker\",\"children\":\"Reading\"}],[\"$\",\"a\",null,{\"className\":\"f-now__title f-now__link f-u\",\"href\":\"https://www.bispublishers.com/the-umami-strategy.html\",\"target\":\"_blank\",\"rel\":\"noopener\",\"children\":\"Brand Kit\"}],[\"$\",\"span\",null,{\"className\":\"f-now__by\",\"children\":\"Calvin Kamara\"}]]}]]}]]}]]}],[\"$\",\"span\",null,{\"className\":\"f-foot__rule\",\"aria-hidden\":\"true\"}],[\"$\",\"div\",null,{\"className\":\"foot__row\",\"children\":[[\"$\",\"$L3e\",null,{\"className\":\"foot__logo\",\"src\":\"/brand/logo-footer.svg\",\"width\":110,\"height\":50,\"alt\":\"stasher studio\"}],[\"$\",\"p\",null,{\"className\":\"f-foot__copy\",\"children\":[\"© \",2026,\" \",\"stasher studio\"]}],[\"$\",\"nav\",null,{\"className\":\"f-foot__legal\",\"aria-label\":\"Legal\",\"children\":[\"$\",\"ul\",null,{\"children\":[[[\"$\",\"li\",\"/privacy\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-u\",\"href\":\"/privacy\",\"children\":\"Privacy\"}]}],[\"$\",\"li\",\"/cookies\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-u\",\"href\":\"/cookies\",\"children\":\"Cookies\"}]}],[\"$\",\"li\",\"/terms\",{\"children\":[\"$\",\"$L36\",null,{\"className\":\"f-u\",\"href\":\"/terms\",\"children\":\"Terms\"}]}]],[\"$\",\"li\",null,{\"className\":\"f-foot__settings\",\"children\":[\"$\",\"$L43\",null,{\"className\":\"f-u f-foot__btn\",\"children\":\"Cookie settings\"}]}]]}]}]]}]]}]\n"])</script><script>self.__next_f.push([1,"34:[\"$\",\"header\",null,{\"className\":\"topbar ew-bar\",\"children\":[[\"$\",\"$L36\",null,{\"className\":\"topbar__logo\",\"href\":\"/\",\"aria-label\":\"stasher studio, home\",\"children\":[\"$\",\"$L3e\",null,{\"src\":\"/brand/Logo-melon.svg\",\"width\":110,\"height\":50,\"alt\":\"stasher studio\",\"loading\":\"eager\"}]}],[\"$\",\"nav\",null,{\"className\":\"topbar__nav\",\"aria-label\":\"Main\",\"children\":[[\"$\",\"$L36\",\"work\",{\"className\":\"f-u\",\"href\":\"/work\",\"aria-current\":\"$undefined\",\"children\":[\"$\",\"span\",null,{\"className\":\"f-nav__in\",\"children\":[\"work\",[\"$\",\"sup\",null,{\"className\":\"count\",\"children\":[\"(\",7,\")\"]}]]}]}],[\"$\",\"$L36\",\"about\",{\"className\":\"f-u\",\"href\":\"/about\",\"aria-current\":\"$undefined\",\"children\":[\"$\",\"span\",null,{\"className\":\"f-nav__in\",\"children\":[\"about\",false]}]}],[\"$\",\"$L36\",\"contact\",{\"className\":\"f-u\",\"href\":\"/contact\",\"aria-current\":\"$undefined\",\"children\":[\"$\",\"span\",null,{\"className\":\"f-nav__in\",\"children\":[\"contact\",false]}]}]]}]]}]\n"])</script><script>self.__next_f.push([1,"22:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n"])</script><script>self.__next_f.push([1,"44:I[27201,[\"$2\"],\"IconMark\"]\n"])</script><script>self.__next_f.push([1,"26:[[\"$\",\"title\",\"0\",{\"children\":\"SaaS product design: apps, dashboards, design systems | stasher studio\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"SaaS and app design from Nairobi: research, UX flows, dashboards, design systems and prototypes in code, made with your developers.\"}],[\"$\",\"link\",\"2\",{\"rel\":\"manifest\",\"href\":\"/manifest.webmanifest\",\"crossOrigin\":\"$undefined\"}],[\"$\",\"link\",\"3\",{\"rel\":\"canonical\",\"href\":\"https://stasher.studio/services/saas-product-design\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:title\",\"content\":\"SaaS product design: apps, dashboards, design systems | stasher studio\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:description\",\"content\":\"SaaS and app design from Nairobi: research, UX flows, dashboards, design systems and prototypes in code, made with your developers.\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:url\",\"content\":\"https://stasher.studio/services/saas-product-design\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:site_name\",\"content\":\"stasher studio\"}],[\"$\",\"meta\",\"9\",{\"property\":\"og:locale\",\"content\":\"en_US\"}],[\"$\",\"meta\",\"10\",{\"property\":\"og:image\",\"content\":\"https://stasher.studio/work/ipg-interact/og.jpg\"}],[\"$\",\"meta\",\"11\",{\"property\":\"og:image:type\",\"content\":\"image/jpeg\"}],[\"$\",\"meta\",\"12\",{\"property\":\"og:image:width\",\"content\":\"1200\"}],[\"$\",\"meta\",\"13\",{\"property\":\"og:image:height\",\"content\":\"630\"}],[\"$\",\"meta\",\"14\",{\"property\":\"og:image:alt\",\"content\":\"Porsche 3D: 3D study\"}],[\"$\",\"meta\",\"15\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"16\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"17\",{\"name\":\"twitter:title\",\"content\":\"SaaS product design: apps, dashboards, design systems | stasher studio\"}],[\"$\",\"meta\",\"18\",{\"name\":\"twitter:description\",\"content\":\"SaaS and app design from Nairobi: research, UX flows, dashboards, design systems and prototypes in code, made with your developers.\"}],[\"$\",\"meta\",\"19\",{\"name\":\"twitter:image\",\"content\":\"https://stasher.studio/work/ipg-interact/og.jpg\"}],[\"$\",\"meta\",\"20\",{\"name\":\"twitter:image:alt\",\"content\":\"Porsche 3D: 3D study\"}],[\"$\",\"meta\",\"21\",{\"name\":\"twitter:image:type\",\"content\":\"image/jpeg\"}],[\"$\",\"meta\",\"22\",{\"name\":\"twitter:image:width\",\"content\":\"1200\"}],[\"$\",\"meta\",\"23\",{\"name\":\"twitter:image:height\",\"content\":\"630\"}],[\"$\",\"link\",\"24\",{\"rel\":\"icon\",\"href\":\"/favicon.ico?favicon.17ofhi2q-4pa0.ico\",\"sizes\":\"48x48\",\"type\":\"image/x-icon\"}],[\"$\",\"link\",\"25\",{\"rel\":\"icon\",\"href\":\"/icon.svg?icon.3eoeyp3vzz9by.svg\",\"sizes\":\"any\",\"type\":\"image/svg+xml\"}],[\"$\",\"link\",\"26\",{\"rel\":\"apple-touch-icon\",\"href\":\"/apple-icon?015b545ee4660078\",\"alt\":\"$undefined\",\"type\":\"image/png\",\"sizes\":\"180x180\"}],[\"$\",\"$L44\",\"27\",{}]]\n"])</script><script>self.__next_f.push([1,"32:null\n"])</script></body></html>

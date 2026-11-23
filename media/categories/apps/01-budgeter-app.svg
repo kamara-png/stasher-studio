@@ -1,0 +1,262 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640" role="img" aria-label="Budgeter expense tracker app shown on two phones">
+  <defs>
+    <linearGradient id="bBG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#151F3A"/>
+    </linearGradient>
+    <radialGradient id="bGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#4F46E5" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#4F46E5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a4766"/>
+      <stop offset="0.5" stop-color="#1c2740"/>
+      <stop offset="1" stop-color="#131c30"/>
+    </linearGradient>
+    <linearGradient id="bScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#0d1729"/>
+    </linearGradient>
+
+    <g id="ic-wallet" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-8" y="-6" width="16" height="12" rx="3"/>
+      <path d="M3 -1 h5 M8 -1 a1.6 1.6 0 0 1 0 2 H3"/>
+    </g>
+    <g id="ic-card" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-8" y="-5.5" width="16" height="11" rx="2.5"/>
+      <line x1="-8" y1="-1.5" x2="8" y2="-1.5"/>
+    </g>
+    <g id="ic-pie" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="0" r="7"/>
+      <path d="M0 0 L0 -7 M0 0 L6 3.5"/>
+    </g>
+    <g id="ic-gear" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="0" r="2.6"/>
+      <path d="M0 -7 v2 M0 7 v-2 M7 0 h-2 M-7 0 h2 M5 -5 l-1.4 1.4 M-5 5 l1.4 -1.4 M5 5 l-1.4 -1.4 M-5 -5 l1.4 1.4"/>
+    </g>
+    <g id="ic-calc" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-6" y="-8" width="12" height="16" rx="2.5"/>
+      <line x1="-3" y1="-4.5" x2="3" y2="-4.5"/>
+      <circle cx="-3" cy="0.5" r="0.7"/>
+      <circle cx="0" cy="0.5" r="0.7"/>
+      <circle cx="3" cy="0.5" r="0.7"/>
+      <circle cx="-3" cy="4" r="0.7"/>
+      <circle cx="0" cy="4" r="0.7"/>
+      <circle cx="3" cy="4" r="0.7"/>
+    </g>
+    <g id="ic-chev-l" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.4 -5 L-2.6 0 L2.4 5"/>
+    </g>
+    <g id="ic-chev-r" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-2.4 -5 L2.6 0 L-2.4 5"/>
+    </g>
+
+    <clipPath id="clip-b1"><rect x="431" y="57" width="240" height="526" rx="32"/></clipPath>
+    <clipPath id="clip-b2"><rect x="929" y="57" width="240" height="526" rx="32"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="640" fill="url(#bBG)"/>
+  <ellipse cx="800" cy="330" rx="640" ry="360" fill="url(#bGlow)"/>
+  <g opacity="0.16" fill="#818CF8">
+    <circle cx="150" cy="120" r="2"/><circle cx="280" cy="500" r="2"/><circle cx="1420" cy="150" r="2"/>
+    <circle cx="1320" cy="520" r="2"/><circle cx="760" cy="70" r="2"/><circle cx="900" cy="610" r="2"/>
+  </g>
+
+  <!-- ================= PHONE 1 : Dashboard ================= -->
+  <rect x="420" y="46" width="262" height="548" rx="44" fill="url(#bFrame)" stroke="#3a4766" stroke-width="1.5"/>
+  <rect x="431" y="57" width="240" height="526" rx="32" fill="url(#bScreen)" stroke="#243149" stroke-width="1"/>
+  <rect x="514" y="68" width="74" height="22" rx="11" fill="#05070d"/>
+
+  <g clip-path="url(#clip-b1)">
+    <!-- status bar -->
+    <text x="449" y="82" font-family="Inter, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#F1F5F9">9:41</text>
+    <g fill="#F1F5F9" opacity="0.9">
+      <rect x="631" y="74" width="3" height="7" rx="0.8"/>
+      <rect x="636" y="72" width="3" height="9" rx="0.8"/>
+      <rect x="641" y="70" width="3" height="11" rx="0.8"/>
+      <rect x="650" y="72" width="14" height="8" rx="2" fill="none" stroke="#F1F5F9" stroke-width="1"/>
+      <rect x="652" y="74" width="8" height="4" rx="1"/>
+    </g>
+
+    <!-- header -->
+    <rect x="511" y="96" width="15" height="15" rx="4.5" fill="#818CF8"/>
+    <text x="533" y="108" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#F1F5F9">Budgeter</text>
+    <use href="#ic-calc" transform="translate(650,103)" stroke="#94A3B8"/>
+
+    <!-- summary card -->
+    <rect x="445" y="119" width="212" height="112" rx="14" fill="#151D2E" stroke="#243149" stroke-width="1"/>
+    <text x="459" y="141" font-family="Inter, sans-serif" font-size="10" fill="#94A3B8">Spent in October</text>
+    <text x="459" y="166" font-family="Inter, sans-serif" font-size="23" font-weight="800" fill="#F1F5F9">KSh 42,350</text>
+    <line x1="459" y1="177" x2="643" y2="177" stroke="#243149"/>
+    <g font-family="Inter, sans-serif" text-anchor="middle">
+      <text x="480" y="196" font-size="11.5" font-weight="800" fill="#34D399">KSh 85,000</text>
+      <text x="551" y="196" font-size="11.5" font-weight="800" fill="#F1F5F9">+42,650</text>
+      <text x="622" y="196" font-size="11.5" font-weight="800" fill="#818CF8">KSh 17,650</text>
+      <text x="480" y="210" font-size="9" fill="#94A3B8">Income</text>
+      <text x="551" y="210" font-size="9" fill="#94A3B8">Net</text>
+      <text x="622" y="210" font-size="9" fill="#94A3B8">Left</text>
+    </g>
+    <line x1="515" y1="186" x2="515" y2="214" stroke="#243149"/>
+    <line x1="586" y1="186" x2="586" y2="214" stroke="#243149"/>
+
+    <!-- monthly budget -->
+    <text x="459" y="251" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#F1F5F9">Monthly budget</text>
+    <rect x="445" y="259" width="212" height="150" rx="14" fill="#151D2E" stroke="#243149" stroke-width="1"/>
+    <text x="459" y="280" font-family="Inter, sans-serif" font-size="9.5" fill="#94A3B8">KSh 42,350 of KSh 60,000</text>
+    <text x="643" y="280" text-anchor="end" font-family="Inter, sans-serif" font-size="11" font-weight="800" fill="#F1F5F9">71%</text>
+    <rect x="459" y="287" width="196" height="6" rx="3" fill="#1B2437"/>
+    <rect x="459" y="287" width="138" height="6" rx="3" fill="#818CF8"/>
+
+    <g font-family="Inter, sans-serif">
+      <text x="459" y="310" font-size="9.5" font-weight="600" fill="#F1F5F9">Food &amp; Drinks</text>
+      <text x="643" y="310" text-anchor="end" font-size="9" fill="#94A3B8">KSh 18,500 / 20,000</text>
+      <rect x="459" y="314" width="196" height="5" rx="2.5" fill="#1B2437"/>
+      <rect x="459" y="314" width="180" height="5" rx="2.5" fill="#F59E0B"/>
+
+      <text x="459" y="338" font-size="9.5" font-weight="600" fill="#F1F5F9">Transport</text>
+      <text x="643" y="338" text-anchor="end" font-size="9" fill="#94A3B8">KSh 8,200 / 12,000</text>
+      <rect x="459" y="342" width="196" height="5" rx="2.5" fill="#1B2437"/>
+      <rect x="459" y="342" width="133" height="5" rx="2.5" fill="#3B82F6"/>
+
+      <text x="459" y="366" font-size="9.5" font-weight="600" fill="#F1F5F9">Shopping</text>
+      <text x="643" y="366" text-anchor="end" font-size="9" fill="#94A3B8">KSh 6,900 / 8,000</text>
+      <rect x="459" y="370" width="196" height="5" rx="2.5" fill="#1B2437"/>
+      <rect x="459" y="370" width="169" height="5" rx="2.5" fill="#EF4444"/>
+    </g>
+
+    <!-- recent activity -->
+    <text x="459" y="429" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#F1F5F9">Recent activity</text>
+    <rect x="445" y="437" width="212" height="84" rx="14" fill="#151D2E" stroke="#243149" stroke-width="1"/>
+    <g font-family="Inter, sans-serif">
+      <circle cx="458" cy="451" r="8" fill="#F59E0B" opacity="0.9"/>
+      <text x="472" y="454" font-size="9.5" fill="#F1F5F9">Food &amp; Drinks</text>
+      <text x="643" y="454" text-anchor="end" font-size="9.5" font-weight="700" fill="#F87171">-KSh 1,200</text>
+
+      <circle cx="458" cy="479" r="8" fill="#3B82F6" opacity="0.9"/>
+      <text x="472" y="482" font-size="9.5" fill="#F1F5F9">Transport</text>
+      <text x="643" y="482" text-anchor="end" font-size="9.5" font-weight="700" fill="#F87171">-KSh 350</text>
+
+      <circle cx="458" cy="507" r="8" fill="#10B981" opacity="0.9"/>
+      <text x="472" y="510" font-size="9.5" fill="#F1F5F9">Salary</text>
+      <text x="643" y="510" text-anchor="end" font-size="9.5" font-weight="700" fill="#34D399">+KSh 85,000</text>
+    </g>
+
+    <!-- tab bar -->
+    <rect x="431" y="528" width="240" height="55" fill="#151D2E"/>
+    <line x1="431" y1="528" x2="671" y2="528" stroke="#243149"/>
+    <g text-anchor="middle" font-family="Inter, sans-serif" font-size="8">
+      <use href="#ic-wallet" transform="translate(461,551)" stroke="#818CF8"/>
+      <text x="461" y="571" fill="#818CF8">Budgeter</text>
+      <use href="#ic-card" transform="translate(521,551)" stroke="#64748B"/>
+      <text x="521" y="571" fill="#64748B">History</text>
+      <use href="#ic-pie" transform="translate(581,551)" stroke="#64748B"/>
+      <text x="581" y="571" fill="#64748B">Stats</text>
+      <use href="#ic-gear" transform="translate(641,551)" stroke="#64748B"/>
+      <text x="641" y="571" fill="#64748B">Settings</text>
+    </g>
+  </g>
+
+  <!-- ================= PHONE 2 : Stats ================= -->
+  <rect x="918" y="46" width="262" height="548" rx="44" fill="url(#bFrame)" stroke="#3a4766" stroke-width="1.5"/>
+  <rect x="929" y="57" width="240" height="526" rx="32" fill="url(#bScreen)" stroke="#243149" stroke-width="1"/>
+  <rect x="1012" y="68" width="74" height="22" rx="11" fill="#05070d"/>
+
+  <g clip-path="url(#clip-b2)">
+    <text x="947" y="82" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#F1F5F9">9:41</text>
+    <g fill="#F1F5F9" opacity="0.9">
+      <rect x="1129" y="74" width="3" height="7" rx="0.8"/>
+      <rect x="1134" y="72" width="3" height="9" rx="0.8"/>
+      <rect x="1139" y="70" width="3" height="11" rx="0.8"/>
+      <rect x="1148" y="72" width="14" height="8" rx="2" fill="none" stroke="#F1F5F9" stroke-width="1"/>
+      <rect x="1150" y="74" width="8" height="4" rx="1"/>
+    </g>
+
+    <text x="1049" y="108" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#F1F5F9">Stats</text>
+
+    <!-- month nav -->
+    <circle cx="956" cy="139" r="13" fill="#1B2437"/>
+    <use href="#ic-chev-l" transform="translate(956,139)" stroke="#F1F5F9"/>
+    <text x="1049" y="144" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#F1F5F9">October 2025</text>
+    <circle cx="1142" cy="139" r="13" fill="#1B2437"/>
+    <use href="#ic-chev-r" transform="translate(1142,139)" stroke="#F1F5F9"/>
+
+    <!-- spent card -->
+    <rect x="943" y="164" width="212" height="96" rx="14" fill="#151D2E" stroke="#243149" stroke-width="1"/>
+    <text x="957" y="186" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#94A3B8">Spent</text>
+    <text x="957" y="212" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="#F1F5F9">KSh 42,350</text>
+    <line x1="957" y1="224" x2="1141" y2="224" stroke="#243149"/>
+    <g font-family="Inter, sans-serif" text-anchor="middle">
+      <text x="996" y="242" font-size="12" font-weight="800" fill="#34D399">KSh 85,000</text>
+      <text x="996" y="255" font-size="9" fill="#94A3B8">Income</text>
+      <text x="1102" y="242" font-size="12" font-weight="800" fill="#F1F5F9">KSh 42,350</text>
+      <text x="1102" y="255" font-size="9" fill="#94A3B8">Expenses</text>
+    </g>
+
+    <!-- by category card -->
+    <rect x="943" y="270" width="212" height="218" rx="14" fill="#151D2E" stroke="#243149" stroke-width="1"/>
+    <text x="957" y="290" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#F1F5F9">By category</text>
+
+    <g transform="rotate(-90 1049 356)">
+      <circle cx="1049" cy="356" r="38" fill="none" stroke="#1B2437" stroke-width="14"/>
+      <circle cx="1049" cy="356" r="38" fill="none" stroke="#F59E0B" stroke-width="14" stroke-dasharray="88.3 150.5"/>
+      <circle cx="1049" cy="356" r="38" fill="none" stroke="#3B82F6" stroke-width="14" stroke-dasharray="52.5 186.3" transform="rotate(133.2 1049 356)"/>
+      <circle cx="1049" cy="356" r="38" fill="none" stroke="#EF4444" stroke-width="14" stroke-dasharray="40.6 198.2" transform="rotate(212.4 1049 356)"/>
+      <circle cx="1049" cy="356" r="38" fill="none" stroke="#8B5CF6" stroke-width="14" stroke-dasharray="31.0 207.8" transform="rotate(273.6 1049 356)"/>
+      <circle cx="1049" cy="356" r="38" fill="none" stroke="#EC4899" stroke-width="14" stroke-dasharray="26.3 212.5" transform="rotate(320.4 1049 356)"/>
+    </g>
+    <text x="1049" y="353" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="800" fill="#F1F5F9">42.3K</text>
+    <text x="1049" y="365" text-anchor="middle" font-family="Inter, sans-serif" font-size="7.5" fill="#94A3B8">spent</text>
+
+    <g font-family="Inter, sans-serif">
+      <circle cx="959" cy="414" r="4" fill="#F59E0B"/>
+      <text x="971" y="417" font-size="9.5" font-weight="600" fill="#F1F5F9">Food &amp; Drinks</text>
+      <text x="1107" y="417" text-anchor="end" font-size="9.5" font-weight="700" fill="#F1F5F9">KSh 15,800</text>
+      <text x="1141" y="417" text-anchor="end" font-size="9" fill="#64748B">37%</text>
+
+      <circle cx="959" cy="434" r="4" fill="#3B82F6"/>
+      <text x="971" y="437" font-size="9.5" font-weight="600" fill="#F1F5F9">Transport</text>
+      <text x="1107" y="437" text-anchor="end" font-size="9.5" font-weight="700" fill="#F1F5F9">KSh 9,200</text>
+      <text x="1141" y="437" text-anchor="end" font-size="9" fill="#64748B">22%</text>
+
+      <circle cx="959" cy="454" r="4" fill="#EF4444"/>
+      <text x="971" y="457" font-size="9.5" font-weight="600" fill="#F1F5F9">Shopping</text>
+      <text x="1107" y="457" text-anchor="end" font-size="9.5" font-weight="700" fill="#F1F5F9">KSh 7,400</text>
+      <text x="1141" y="457" text-anchor="end" font-size="9" fill="#64748B">17%</text>
+
+      <circle cx="959" cy="474" r="4" fill="#8B5CF6"/>
+      <text x="971" y="477" font-size="9.5" font-weight="600" fill="#F1F5F9">Bills &amp; Utilities</text>
+      <text x="1107" y="477" text-anchor="end" font-size="9.5" font-weight="700" fill="#F1F5F9">KSh 5,600</text>
+      <text x="1141" y="477" text-anchor="end" font-size="9" fill="#64748B">13%</text>
+    </g>
+
+    <!-- last 6 months (clipped at bottom) -->
+    <rect x="943" y="496" width="212" height="130" rx="14" fill="#151D2E" stroke="#243149" stroke-width="1"/>
+    <text x="957" y="516" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#F1F5F9">Last 6 months</text>
+    <g>
+      <rect x="961" y="556" width="18" height="18" rx="4" fill="#818CF8"/>
+      <rect x="993" y="562" width="18" height="12" rx="4" fill="#818CF8" opacity="0.75"/>
+      <rect x="1025" y="540" width="18" height="34" rx="4" fill="#818CF8" opacity="0.85"/>
+      <rect x="1057" y="552" width="18" height="22" rx="4" fill="#818CF8" opacity="0.85"/>
+      <rect x="1089" y="534" width="18" height="40" rx="4" fill="#818CF8"/>
+      <rect x="1121" y="558" width="18" height="16" rx="4" fill="#818CF8" opacity="0.75"/>
+    </g>
+    <g font-family="Inter, sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle">
+      <text x="970" y="585">May</text><text x="1002" y="585">Jun</text><text x="1034" y="585">Jul</text>
+      <text x="1066" y="585">Aug</text><text x="1098" y="585">Sep</text><text x="1130" y="585">Oct</text>
+    </g>
+
+    <!-- tab bar -->
+    <rect x="929" y="528" width="240" height="55" fill="#151D2E"/>
+    <line x1="929" y1="528" x2="1169" y2="528" stroke="#243149"/>
+    <g text-anchor="middle" font-family="Inter, sans-serif" font-size="8">
+      <use href="#ic-wallet" transform="translate(959,551)" stroke="#64748B"/>
+      <text x="959" y="571" fill="#64748B">Budgeter</text>
+      <use href="#ic-card" transform="translate(1019,551)" stroke="#64748B"/>
+      <text x="1019" y="571" fill="#64748B">History</text>
+      <use href="#ic-pie" transform="translate(1079,551)" stroke="#818CF8"/>
+      <text x="1079" y="571" fill="#818CF8">Stats</text>
+      <use href="#ic-gear" transform="translate(1139,551)" stroke="#64748B"/>
+      <text x="1139" y="571" fill="#64748B">Settings</text>
+    </g>
+  </g>
+</svg>
