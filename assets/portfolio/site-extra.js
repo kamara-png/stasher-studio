@@ -318,7 +318,8 @@
     });
   }
 
-  /* Latest-work cards fit whatever image they are given, in any orientation. */
+  /* Latest-work cards keep a uniform 16:9 frame while every cover stays
+     uncropped at its original proportions. */
   function fitCards() {
     [].slice.call(document.querySelectorAll('.proj.cat-card')).forEach(function (card) {
       var img = card.querySelector('img.proj__img');
@@ -330,6 +331,8 @@
       img.style.height = '100%';
       img.style.padding = '0';
       img.style.visibility = 'visible';
+      var link = card.querySelector('.proj__card');
+      if (link) link.style.setProperty('--cover', 'url("' + img.getAttribute('src') + '")');
       var cap = card.querySelector('.proj__cap');
       if (cap) {
         cap.style.opacity = '1';
@@ -337,6 +340,97 @@
         cap.style.visibility = 'visible';
       }
     });
+  }
+
+  /* Latest-work photos use melon's layered reveal: a folded 3D card, a curtain
+     wipe, staggered title letters, a sliding caption and a depth-based drift
+     tied to the scroll. Independent CSS properties keep these clear of the
+     site's GSAP track transform. */
+  var cardObserver = null;
+  var CAT_DEPTHS = [18, 34, 24, 40, 20, 32];
+  function prepareCard(card, i) {
+    card.style.setProperty('--cat-i', String(i % 6));
+    card.style.setProperty('--cat-depth', CAT_DEPTHS[i % 6] + 'px');
+    card.style.setProperty('--cat-shift', '0px');
+    card.style.setProperty('--cat-zoom', '1');
+    [].slice.call(card.querySelectorAll('.proj__title .ts-c')).forEach(function (letter, n) {
+      letter.style.setProperty('--ts-i', String(n));
+    });
+    [].slice.call(card.querySelectorAll('.proj__kind')).forEach(function (kind) {
+      if (kind.querySelector('.pp-lmask')) return;
+      var text = (kind.textContent || '').trim();
+      if (!text) return;
+      kind.textContent = '';
+      var mask = document.createElement('span');
+      mask.className = 'pp-lmask';
+      var inner = document.createElement('span');
+      inner.className = 'pp-ln';
+      inner.textContent = text;
+      inner.style.setProperty('--i', String(i % 8));
+      mask.appendChild(inner);
+      kind.appendChild(mask);
+    });
+    var img = card.querySelector('.proj__img');
+    if (img && !img.__catDoneBound) {
+      img.__catDoneBound = true;
+      img.addEventListener('animationend', function (e) {
+        if (e.animationName === 'catPhotoIn') card.classList.add('cat-done');
+      });
+    }
+  }
+  function revealCard(card) {
+    var cap = card.querySelector('.proj__cap');
+    if (cap) { cap.style.opacity = '1'; cap.style.translate = '0px'; cap.style.visibility = 'visible'; }
+    card.classList.add('cat-in');
+    cardObserver.unobserve(card);
+  }
+  function animateLatestWork() {
+    var cards = [].slice.call(document.querySelectorAll('.proj.cat-card'));
+    if (!cards.length) return;
+    cards.forEach(prepareCard);
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      cards.forEach(function (card) {
+        card.style.setProperty('--cat-shift', '0px');
+        card.classList.add('cat-in');
+        card.classList.add('cat-done');
+      });
+      return;
+    }
+    if (!cardObserver) {
+      cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) revealCard(entry.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+    }
+    cards.forEach(function (card) {
+      if (!card.classList.contains('cat-in')) cardObserver.observe(card);
+    });
+    if (!window.__catScrollBound) {
+      window.__catScrollBound = true;
+      var ticking = false;
+      var update = function () {
+        ticking = false;
+        var h = window.innerHeight || 1;
+        [].slice.call(document.querySelectorAll('.proj.cat-card')).forEach(function (card) {
+          var r = card.getBoundingClientRect();
+          if (r.bottom < -80 || r.top > h + 80) return;
+          var progress = (h / 2 - (r.top + r.height / 2)) / h;
+          var depth = parseInt(card.style.getPropertyValue('--cat-depth'), 10) || 24;
+          card.style.setProperty('--cat-shift', (progress * depth).toFixed(1) + 'px');
+          card.style.setProperty('--cat-zoom', (1 + Math.min(Math.abs(progress), 0.5) * 0.06).toFixed(3));
+        });
+      };
+      var request = function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      };
+      window.addEventListener('scroll', request, { passive: true });
+      window.addEventListener('resize', request, { passive: true });
+      request();
+    }
   }
 
   /* The work page uses the home page's line-reveal text animation. */
@@ -461,24 +555,6 @@
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     }
     els.forEach(function (el) { animationObserver.observe(el); });
-    if (path === '/' || path === '/index.html') {
-      var runSlider = function () {
-        [].slice.call(document.querySelectorAll('.an-slide')).forEach(function (card) {
-          var r = card.getBoundingClientRect();
-          if (r.top > window.innerHeight * 1.8 || r.bottom < -100) return;
-          card.style.animationPlayState = 'running';
-          [].slice.call(card.querySelectorAll('.proj__img, .proj__cap')).forEach(function (child) {
-            child.style.animationPlayState = 'running';
-          });
-        });
-      };
-      if (!window.__sliderScrollBound) {
-        window.__sliderScrollBound = true;
-        window.addEventListener('scroll', runSlider, { passive: true });
-        setInterval(runSlider, 250);
-      }
-      runSlider();
-    }
   }
 
   function applyExtra() {
@@ -488,6 +564,7 @@
     try { applyLegal(path); } catch (e) {}
     try { applyCertifications(); } catch (e) {}
     try { fitCards(); } catch (e) {}
+    try { animateLatestWork(); } catch (e) {}
     try { animateLines(); } catch (e) {}
     try { splitTitles(); } catch (e) {}
     try { applyPageAnimations(); } catch (e) {}

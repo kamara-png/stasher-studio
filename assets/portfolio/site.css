@@ -70,23 +70,11 @@ canvas.gl{z-index:1;pointer-events:none;width:100vw;height:100vh;display:block;p
 
 
 
-@font-face {
-font-family:"lekick-regular";
-src:url("/_external/use.typekit.net/af/ea70a2/0000000000000000774a1c09/l__0a69e489") format("woff2"),url("/_external/use.typekit.net/af/ea70a2/0000000000000000774a1c09/d__0a69e489") format("woff"),url("/_external/use.typekit.net/af/ea70a2/0000000000000000774a1c09/a__0a69e489") format("opentype");
-font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
-}
 
-@font-face {
-font-family:"early-sans-variable";
-src:url("/_external/use.typekit.net/af/b563d2/00000000000000007755b0da/l__ef3c5c13") format("woff2"),url("/_external/use.typekit.net/af/b563d2/00000000000000007755b0da/d__ef3c5c13") format("woff"),url("/_external/use.typekit.net/af/b563d2/00000000000000007755b0da/a__ef3c5c13") format("opentype");
-font-display:auto;font-style:normal;font-weight:300 900;font-stretch:normal;
-}
 
-@font-face {
-font-family:"early-sans-variable";
-src:url("/_external/use.typekit.net/af/af06b8/00000000000000007755b0db/l__2281ca1b") format("woff2"),url("/_external/use.typekit.net/af/af06b8/00000000000000007755b0db/d__2281ca1b") format("woff"),url("/_external/use.typekit.net/af/af06b8/00000000000000007755b0db/a__2281ca1b") format("opentype");
-font-display:auto;font-style:italic;font-weight:300 900;font-stretch:normal;
-}
+
+
+
 
 
 
@@ -330,9 +318,28 @@ html.work-pending .ew-grid,html.work-pending .ew-lede{visibility:hidden;animatio
 /* Keep the service hero below the absolute topbar: .f-grid's padding shorthand is defined later and would otherwise reset this. */
 .sv-hero.sv-hero{padding-top:max(150px,24svh)}
 @media (max-width:809.98px){.sv-hero.sv-hero{padding-top:max(120px,18svh)}}
-/* Latest-work cards keep every image at its own ratio, uncropped. */
-.proj.cat-card{aspect-ratio:var(--card-ratio,16/9)!important}
+/* Latest-work cards: uniform 16:9 frame, original image proportions kept uncropped. */
+.proj.cat-card{aspect-ratio:var(--card-ratio,16/9)!important;perspective:1200px}
 .proj.cat-card img.proj__img{object-fit:contain!important;width:100%!important;height:100%!important;padding:0!important}
+.proj.cat-card .proj__card{transform-style:preserve-3d;transform-origin:50% 50%}
+.proj.cat-card .proj__img{transform:translate3d(0,var(--cat-shift,0px),0) scale(var(--cat-zoom,1));transition:scale .55s cubic-bezier(.2,.7,.2,1)}
+.proj.cat-card .proj__cap{opacity:1!important;visibility:visible!important;translate:30px;transition:translate .9s cubic-bezier(.2,.7,.2,1)}
+.proj.cat-card.cat-in .proj__cap{translate:0!important}
+.proj.cat-card .proj__card::before{content:"";position:absolute;inset:0;background:var(--cover,none) center/cover no-repeat;filter:blur(24px) brightness(.38) saturate(.85);transform:scale(1.15)}
+.proj.cat-card .proj__card::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:var(--black,#0d0018);transform-origin:50% 100%}
+@keyframes catFoldIn{0%{transform:perspective(1200px) rotateX(-16deg) scale(.94);filter:brightness(.55)}55%{transform:perspective(1200px) rotateX(5deg) scale(1.02);filter:brightness(1.1)}to{transform:perspective(1200px) rotateX(0) scale(1);filter:brightness(1)}}
+@keyframes catCurtain{from{transform:scaleY(1)}to{transform:scaleY(0)}}
+@keyframes catPhotoIn{from{opacity:.35;scale:1.16;translate:0 6%}to{opacity:1;scale:1;translate:0 0}}
+@keyframes catLetter{from{opacity:0;transform:translateY(110%) rotate(5deg)}to{opacity:1;transform:none}}
+.proj.cat-card.cat-in .proj__card{animation:catFoldIn 1.05s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--cat-i,0)*70ms)}
+.proj.cat-card.cat-in .proj__card::after{animation:catCurtain .95s cubic-bezier(.76,0,.24,1) both;animation-delay:calc(var(--cat-i,0)*70ms)}
+.proj.cat-card.cat-in .proj__img{animation:catPhotoIn 1.15s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--cat-i,0)*70ms + 120ms)}
+.proj.cat-card.cat-in .proj__title .ts-c{animation:catLetter .75s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--cat-i,0)*70ms + var(--ts-i,0)*22ms + 260ms)}
+.proj.cat-card .proj__kind .pp-ln{animation-play-state:paused}
+.proj.cat-card.cat-in .proj__kind .pp-ln{animation-play-state:running}
+.proj.cat-card.cat-done .proj__img{animation:none!important;opacity:1;scale:1;translate:0 0}
+.proj.cat-card.cat-done:hover .proj__img{scale:1.04}
+@media (prefers-reduced-motion:reduce){.proj.cat-card .proj__card,.proj.cat-card .proj__img,.proj.cat-card .proj__title .ts-c,.proj.cat-card .proj__kind .pp-ln{animation:none!important;transform:none!important;translate:none!important;scale:none!important;filter:none!important}.proj.cat-card .proj__card::after{display:none}}
 /* Same line reveal as the home page, used on work headings and ledes. */
 @keyframes stasherLineUp{from{transform:translateY(110%);opacity:0}to{transform:translateY(0);opacity:1}}
 .pp-lmask{display:block;overflow:hidden}
