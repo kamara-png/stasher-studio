@@ -1,4 +1,4 @@
-// Local server for the offline copy of melon.studio
+// Local server for the offline copy of stasher.studio
 // Double-click start.bat, or run: node serve.mjs
 import http from "node:http";
 import fs from "node:fs";
