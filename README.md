@@ -41,7 +41,8 @@ node serve.mjs
 
 Then open [http://localhost:5173](http://localhost:5173). Set `PORT` to use a different port.
 
-> Do **not** use `npm run dev`; there is no `package.json`.
+> Do **not** use `npm run dev`; the site has no build step. `npm install` is only
+> needed for the optional Playwright test suite (`npm run test:e2e`).
 
 ## Deployment
 

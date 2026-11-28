@@ -1,5 +1,5 @@
 // Vercel serverless function for /api/now-playing.
-// Picks one track from Kamarack's "Where chill lives" playlist each day.
+// Picks one track from Kamarack's "Where chill lives" playlist every five minutes.
 const playlist = require("../data/playlist.json");
 
 const SLOT_MS = 5 * 60 * 1000;
