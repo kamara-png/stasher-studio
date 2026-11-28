@@ -2,11 +2,55 @@
 (function () {
   'use strict';
 
+  /* Keep the site's animation wrappers (ts-w/ts-c, mask/up, pp-lmask) intact when
+     replacing copy, otherwise the blur and line-reveal animations stop working. */
   function set(el, text) {
     if (!el) return;
     if (el.textContent === text) return;
-    el.textContent = text;
-    if (el.hasAttribute('aria-label')) el.setAttribute('aria-label', text);
+    var hadTs = !!el.querySelector('.ts-w');
+    var hadUp = !!el.querySelector('.up');
+    var hadLines = !!el.querySelector('.pp-lmask');
+    var labelled = el.hasAttribute('aria-label');
+    el.textContent = '';
+    if (hadTs) {
+      var w = document.createElement('span');
+      w.className = 'ts-w';
+      w.setAttribute('aria-hidden', 'true');
+      var c = document.createElement('span');
+      c.className = 'ts-c';
+      c.textContent = text;
+      w.appendChild(c);
+      el.appendChild(w);
+    } else if (hadUp) {
+      var m = document.createElement('span');
+      m.className = 'mask';
+      var u = document.createElement('span');
+      u.className = 'up';
+      u.textContent = text;
+      m.appendChild(u);
+      el.appendChild(m);
+    } else if (hadLines) {
+      var words = text.split(/\s+/), line = '', lines = [];
+      words.forEach(function (word) {
+        if (!line) line = word;
+        else if ((line + ' ' + word).length <= 42) line += ' ' + word;
+        else { lines.push(line); line = word; }
+      });
+      if (line) lines.push(line);
+      lines.forEach(function (l) {
+        var mask = document.createElement('span');
+        mask.className = 'pp-lmask';
+        mask.setAttribute('aria-hidden', 'true');
+        var inner = document.createElement('span');
+        inner.className = 'pp-ln';
+        inner.textContent = l;
+        mask.appendChild(inner);
+        el.appendChild(mask);
+      });
+    } else {
+      el.textContent = text;
+    }
+    if (labelled) el.setAttribute('aria-label', text);
   }
   function rows(sel, values, prop) {
     var els = [].slice.call(document.querySelectorAll(sel));
@@ -311,17 +355,121 @@
     });
   }
 
+  /* Certifications list: only the three school qualifications, in order. */
+  function applyCertifications() {
+    var list = document.querySelector('.ab-ce__list');
+    if (!list) return;
+    /* Newest first, oldest last: KCPE sits at the bottom. */
+    var data = [
+      ['Certificate in Graphic Design', 'Shang Tao', '2025'],
+      ['KCSE certificate', 'Upperhill School', '2024'],
+      ['KCPE certificate', 'Total Care Academy', '2020']
+    ];
+    while (list.children.length < data.length && list.firstElementChild) {
+      list.appendChild(list.firstElementChild.cloneNode(true));
+    }
+    [].slice.call(list.children).forEach(function (li, i) {
+      if (!data[i]) { li.remove(); return; }
+      set(li.querySelector('.ab-ce__u'), data[i][0]);
+      set(li.querySelector('.ab-ce__by'), data[i][1]);
+      var t = li.querySelector('time');
+      if (t) { t.textContent = data[i][2]; t.setAttribute('datetime', data[i][2] + '-01-01'); }
+      var a = li.querySelector('a');
+      if (a) {
+        a.removeAttribute('href');
+        a.removeAttribute('target');
+        a.removeAttribute('rel');
+        a.setAttribute('tabindex', '-1');
+        a.style.cursor = 'default';
+      }
+    });
+  }
+
+  /* Images render faster: lazy-load everything below the fold, decode off the main
+     thread, and prioritise the one above-the-fold image. */
+  function optimizeImages() {
+    [].slice.call(document.querySelectorAll('img')).forEach(function (img) {
+      if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+      if (!img.hasAttribute('loading')) {
+        var r = img.getBoundingClientRect();
+        if (r.top > window.innerHeight * 0.9) img.setAttribute('loading', 'lazy');
+        else img.setAttribute('fetchpriority', 'high');
+      }
+    });
+  }
+
+  /* About-page style blur/reveal on Contact and Work, plus the Latest Work slider. */
+  var animationObserver = null;
+  function applyPageAnimations() {
+    var path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+    var targets = [];
+    if (path === '/contact') {
+      targets = ['.dc-title', '.dc-intro .dc-lede', '.dc-sec .dc-h', '.dc-sec .dc-p',
+        '.dc-toc__label', '.dc-meta', '.ct-lead', '.ct-body > div', '.ct-form fieldset',
+        '.f-foot__col > *'];
+    } else if (path === '/work' || path.indexOf('/work/') === 0) {
+      targets = ['.ew-title', '.ew-lede', '.ew-back', '.ew-grid .ew-item',
+        '.cat-gallery__item', '.cat-gallery__item figcaption', '.f-foot__col > *'];
+    } else if (path === '/' || path === '/index.html') {
+      targets = ['.proj.cat-card'];
+    }
+    if (!targets.length) return;
+    var els = [];
+    targets.forEach(function (sel) {
+      [].slice.call(document.querySelectorAll(sel)).forEach(function (el) { els.push(el); });
+    });
+    els.forEach(function (el, i) {
+      if (el.classList.contains('an-blur') || el.classList.contains('an-slide')) return;
+      el.style.setProperty('--an-delay', String(Math.min(i % 8, 7) * 70) + 'ms');
+      el.classList.add(path === '/' || path === '/index.html' ? 'an-slide' : 'an-blur');
+    });
+    if (!animationObserver) {
+      animationObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.style.animationPlayState = 'running';
+          [].slice.call(entry.target.querySelectorAll('.proj__img, .proj__cap')).forEach(function (child) {
+            child.style.animationPlayState = 'running';
+          });
+          animationObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    }
+    els.forEach(function (el) { animationObserver.observe(el); });
+    if (path === '/' || path === '/index.html') {
+      var runSlider = function () {
+        [].slice.call(document.querySelectorAll('.an-slide')).forEach(function (card) {
+          var r = card.getBoundingClientRect();
+          if (r.top > window.innerHeight * 1.8 || r.bottom < -100) return;
+          card.style.animationPlayState = 'running';
+          [].slice.call(card.querySelectorAll('.proj__img, .proj__cap')).forEach(function (child) {
+            child.style.animationPlayState = 'running';
+          });
+        });
+      };
+      if (!window.__sliderScrollBound) {
+        window.__sliderScrollBound = true;
+        window.addEventListener('scroll', runSlider, { passive: true });
+        setInterval(runSlider, 250);
+      }
+      runSlider();
+    }
+  }
+
   function applyExtra() {
     stripLinks();
     var path = (location.pathname || '/').replace(/\/+$/, '') || '/';
     try { applyServices(path); } catch (e) {}
     try { applyLegal(path); } catch (e) {}
+    try { applyCertifications(); } catch (e) {}
     try { fitCards(); } catch (e) {}
     try { animateLines(); } catch (e) {}
+    try { applyPageAnimations(); } catch (e) {}
+    try { optimizeImages(); } catch (e) {}
   }
   window.__stasherExtra = applyExtra;
 
-  [1400, 2200, 3400].forEach(function (t) { setTimeout(applyExtra, t); });
+  [2200, 3200, 4500].forEach(function (t) { setTimeout(applyExtra, t); });
   new MutationObserver(stripLinks).observe(document.head, { childList: true });
 
   /* Seamless navigation between pages: fetch first, then swap without a blank frame. */

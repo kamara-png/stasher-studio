@@ -338,4 +338,13 @@ html.work-pending .ew-grid,html.work-pending .ew-lede{visibility:hidden;animatio
 .pp-lmask{display:block;overflow:hidden}
 .pp-ln{display:block;animation:stasherLineUp .85s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
 @media (prefers-reduced-motion:reduce){.pp-ln{animation:none}}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth}/* Long client names wrap to two lines: lift the caption clear of the cell border. */
+.f-cl:not(.f-cl--tools) .f-cl__cell[aria-label="Clarence Matheny Ministries"] .f-cl__cap{margin-bottom:10px}
+.f-cl:not(.f-cl--tools) .f-cl__cell[aria-label="Clarence Matheny Ministries"] .f-cl__name{font-size:10px;line-height:1.25}/* Shared blur/reveal used across About, Contact, Work and the Latest Work slider. */
+@keyframes stasherBlurIn{0%{opacity:0;filter:blur(14px);transform:translateY(16px)}100%{opacity:1;filter:blur(0);transform:none}}
+.an-blur{animation:stasherBlurIn .85s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--an-delay,0s);animation-play-state:paused}
+@keyframes stasherSlideImg{0%{opacity:.35;transform:translateY(22px) scale(1.05)}100%{opacity:1;transform:none}}
+@keyframes stasherSlideCap{0%{opacity:0;transform:translateX(18px)}100%{opacity:1;transform:none}}
+.an-slide .proj__img{animation:stasherSlideImg .9s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--an-delay,0s);animation-play-state:paused}
+.an-slide .proj__cap{animation:stasherSlideCap .8s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--an-delay,0s) + .12s);animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.an-blur,.an-slide .proj__img,.an-slide .proj__cap{animation:none}}.proj.cat-card.an-slide .proj__img{visibility:visible!important}
